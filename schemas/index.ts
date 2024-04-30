@@ -40,7 +40,7 @@ export const SkillsSchema = z.object({
 });
 
 export const ProjectSchema = z.object({
-    sectionHeading: z.string(),
+    // sectionHeading: z.string(),
     projectName: z.string(),
     projectDescription: z.string(),
     projectLink: z.string(),

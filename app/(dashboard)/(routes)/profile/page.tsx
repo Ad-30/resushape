@@ -7,7 +7,7 @@ import { ProfileSchema } from '@/schemas';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from "react-hook-form";
 
 const Page = () => {
 
