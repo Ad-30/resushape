@@ -3,7 +3,7 @@ import { Progress } from "@/components/ui/progress"
 
 export default function RightPanel() {
     return (
-        <section className="w-1/4 bg-white">
+        <section className=" bg-white border border-gray-800">
             <div className="h-full border-l-2 border-gray-200" />
         </section>
     )
