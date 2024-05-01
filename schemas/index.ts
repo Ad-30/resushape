@@ -19,8 +19,8 @@ export const EducationSchema = z.object({
     degree: z.string(),
     major: z.string(),
     gpa: z.number(),
-    startDate: z.date(),
-    endDate: z.date().nullable(),
+    startDate: z.string(),
+    endDate: z.string(),
 });
 
 export const WorkSchema = z.object({
@@ -29,8 +29,8 @@ export const WorkSchema = z.object({
     jobTitle: z.string(),
     jobLocation: z.string(),
     position: z.string(),
-    startDate: z.date(),
-    endDate: z.date().nullable(),
+    startDate: z.string(),
+    endDate: z.string(),
     description: z.string(),
 });
 
@@ -40,7 +40,6 @@ export const SkillsSchema = z.object({
 });
 
 export const ProjectSchema = z.object({
-    // sectionHeading: z.string(),
     projectName: z.string(),
     projectDescription: z.string(),
     projectLink: z.string(),
@@ -50,7 +49,7 @@ export const ProjectSchema = z.object({
 export const AwardsSchema = z.object({
     sectionHeading: z.string(),
     awardName: z.string(),
-    awardDate: z.date(),
+    awardDate: z.string(),
     awarder: z.string(),
     description: z.string(),
 });

@@ -12,7 +12,7 @@ export default function LeftPanel() {
                 <div className="hover-line flex justify-center hover:decoration-emerald-300 cursor-move"><Link href="/profile">
                     Profile
                 </Link></div>
-                <div className="hover-line flex justify-center hover:decoration-emerald-300 cursor-move"><Link href="/educatio ">
+                <div className="hover-line flex justify-center hover:decoration-emerald-300 cursor-move"><Link href="/education">
                     Education
                 </Link></div>
                 <div className="hover-line flex justify-center hover:decoration-emerald-300 cursor-move"><Link href="/work">
