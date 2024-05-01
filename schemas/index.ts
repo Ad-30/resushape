@@ -1,55 +1,52 @@
 import * as z from "zod";
 
 export const ProfileSchema = z.object({
-    fullName: z.string({
-        message: "Name is required",
-    }),
-    email: z.string().email({
-        message: "Email is required",
-    }),
-    phonenumber: z.string().min(10).max(10),
-    location: z.string(),
-    link: z.string()
+    fullName: z.string().optional(),
+    email: z.string().email().optional(),
+    phoneNumber: z.string().optional(),
+    location: z.string().optional(),
+    link: z.string().optional()
 });
 
 export const EducationSchema = z.object({
-    sectionHeading: z.string(),
-    school: z.string(),
-    schoolLocation: z.string(),
-    degree: z.string(),
-    major: z.string(),
-    gpa: z.number(),
-    startDate: z.string(),
-    endDate: z.string(),
+    sectionHeading: z.string().optional(),
+    school: z.string().optional(),
+    schoolLocation: z.string().optional(),
+    degree: z.string().optional(),
+    major: z.string().optional(),
+    gpa: z.string().optional(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional()
 });
 
 export const WorkSchema = z.object({
-    sectionHeading: z.string(),
-    company: z.string(),
-    jobTitle: z.string(),
-    jobLocation: z.string(),
-    position: z.string(),
-    startDate: z.string(),
-    endDate: z.string(),
-    description: z.string(),
+    sectionHeading: z.string().optional(),
+    company: z.string().optional(),
+    jobTitle: z.string().optional(),
+    jobLocation: z.string().optional(),
+    position: z.string().optional(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    description: z.string().optional(),
 });
 
 export const SkillsSchema = z.object({
-    sectionHeading: z.string(),
-    skills: z.array(z.string()),
+    sectionHeading: z.string().optional(),
+    skills: z.array(z.string()).optional(),
 });
 
 export const ProjectSchema = z.object({
-    projectName: z.string(),
-    projectDescription: z.string(),
-    projectLink: z.string(),
-    toolsUsed: z.array(z.string()),
+    sectionHeading: z.string().optional(),
+    projectName: z.string().optional(),
+    projectDescription: z.string().optional(),
+    projectLink: z.string().optional(),
+    toolsUsed: z.array(z.string()).optional(),
 });
 
 export const AwardsSchema = z.object({
-    sectionHeading: z.string(),
-    awardName: z.string(),
-    awardDate: z.string(),
-    awarder: z.string(),
-    description: z.string(),
+    sectionHeading: z.string().optional(),
+    awardName: z.string().optional(),
+    awardDate: z.string().optional(),
+    awarder: z.string().optional(),
+    description: z.string().optional(),
 });

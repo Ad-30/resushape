@@ -13,6 +13,13 @@ const Page = () => {
 
     const form = useForm<z.infer<typeof ProfileSchema>>({
         resolver: zodResolver(ProfileSchema),
+        defaultValues: {
+            fullName: '',
+            email: '',
+            phoneNumber: '',
+            location: '',
+            link: ''
+        }
     });
 
     const onSubmit = async (values: z.infer<typeof ProfileSchema>) => {
@@ -62,7 +69,7 @@ const Page = () => {
                     />
                     <FormField
                         control={form.control}
-                        name="phonenumber"
+                        name="phoneNumber"
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel htmlFor="email">Phone Number</FormLabel>

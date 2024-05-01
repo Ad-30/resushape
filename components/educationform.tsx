@@ -11,6 +11,16 @@ import { Button } from '@/components/ui/button';
 export const EducationForm = () => {
     const form = useForm<z.infer<typeof EducationSchema>>({
         resolver: zodResolver(EducationSchema),
+        defaultValues: {
+            sectionHeading: '',
+            school: '',
+            schoolLocation: '',
+            degree: '',
+            major: '',
+            gpa: '',
+            startDate: '',
+            endDate: ''
+        }
     });
 
     const onSubmit = async (values: z.infer<typeof EducationSchema>) => {
