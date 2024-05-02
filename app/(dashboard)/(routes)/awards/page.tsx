@@ -1,11 +1,9 @@
-import Projects from '@/components/projects'
+import MidPanel from '@/components/midpanel'
 import React from 'react'
 
 const page = () => {
     return (
-
-        <Projects />
-
+        <MidPanel />
     )
 }
 

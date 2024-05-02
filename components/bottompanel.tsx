@@ -4,7 +4,7 @@ import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-const sections = ["/resumeTemplate", "/profile", "/education", "/work", "/skills", "/awards", "/projects"];
+const sections = ["/resumeTemplates", "/profile", "/education", "/work", "/skills", "/projects", "/awards"];
 
 export default function BottomPanel() {
     const router = useRouter();

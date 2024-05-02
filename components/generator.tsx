@@ -19,7 +19,6 @@ export default function Generator() {
       <TopPanel />
       <div className="flex flex-1 overflow-hidden">
         <LeftPanel />
-        <MidPanel />
         <RightPanel />
       </div>
       <BottomPanel />

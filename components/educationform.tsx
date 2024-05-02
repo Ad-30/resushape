@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 export const EducationForm = () => {
+
     const form = useForm<z.infer<typeof EducationSchema>>({
         resolver: zodResolver(EducationSchema),
         defaultValues: {
@@ -26,6 +27,7 @@ export const EducationForm = () => {
     const onSubmit = async (values: z.infer<typeof EducationSchema>) => {
         console.log(values);
     }
+
     return (
         <Form {...form}>
             <form
