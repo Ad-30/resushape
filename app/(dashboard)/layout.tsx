@@ -1,7 +1,5 @@
 import BottomPanel from "@/components/bottompanel";
-import Generator from "@/components/generator";
 import LeftPanel from "@/components/leftpanel";
-import MidPanel from "@/components/midpanel";
 import RightPanel from "@/components/rightpanel";
 import TopPanel from "@/components/toppanel";
 

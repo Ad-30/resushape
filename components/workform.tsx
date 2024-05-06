@@ -1,42 +1,50 @@
 'use client'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EducationSchema } from '@/schemas';
-import { useForm } from 'react-hook-form';
+import { WorkSchema } from '@/schemas';
+import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { EducationFormProps } from '@/app/interfaces';
+import { WorkFormProps } from '@/app/interfaces';
 
-const EducationForm: React.FC<EducationFormProps> = (props) => {
-    const form = useForm<z.infer<typeof EducationSchema>>({
-        resolver: zodResolver(EducationSchema),
+const WorkForm: React.FC<WorkFormProps> = (props) => {
+    const [workCount, setWorkCount] = useState(props.initialValues?.description?.length || 1);
+    const handleAddTool = () => {
+        setWorkCount((prevCount: number) => prevCount + 1);
+    };
+
+    const handleRemoveTool = () => {
+        if (workCount > 1) {
+            setWorkCount((prevCount: number) => prevCount - 1);
+        }
+    };
+    const form = useForm<z.infer<typeof WorkSchema>>({
+        resolver: zodResolver(WorkSchema),
         defaultValues: props.initialValues || {
-            school: '',
-            schoolLocation: '',
-            degree: '',
-            major: '',
-            gpa: '',
-            startDate: '',
-            endDate: ''
+            companyName: "",
+            jobTitle: "",
+            jobLocation: "",
+            position: "",
+            startDate: "",
+            endDate: "",
+            description: [""],
         }
     });
-
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const subscription = form.watch((values) => {
-                props.updateEducationItem(props.educationCount - 1, values); // Call updateEducationItem with educationCount as ID and values as the new item
+                props.updateWorkItem(props.workCount - 1, values);
             });
             return () => subscription.unsubscribe();
         }
 
-    }, [form, props]);
+    }, [form]);
 
-    const onSubmit = async (values: z.infer<typeof EducationSchema>) => {
+    const onSubmit = async (values: z.infer<typeof WorkSchema>) => {
         console.log(values);
     }
-
 
     return (
 
@@ -47,18 +55,18 @@ const EducationForm: React.FC<EducationFormProps> = (props) => {
             >
                 <hr className=" my-2 border-4 border-emerald-400" />
                 <div className="flex justify-center">
-                    <Button className="border rounded-full bg-transparent text-emerald-400 border-gray-700 hover:border-emerald-400 hover:text-emerald-400">{props.educationCount}</Button>
+                    <Button className="border rounded-full bg-transparent text-emerald-400 border-gray-700 hover:border-emerald-400 hover:text-emerald-400">{props.workCount}</Button>
                 </div>
                 <FormField
                     control={form.control}
-                    name="school"
+                    name="companyName"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel htmlFor="school">School Name</FormLabel>
+                            <FormLabel htmlFor="companyName">Company Name</FormLabel>
                             <FormControl>
                                 <Input
-                                    id='school'
-                                    placeholder="Standford University"
+                                    id='companyName'
+                                    placeholder="Apple inc."
                                     {...field}
                                 />
                             </FormControl>
@@ -68,14 +76,14 @@ const EducationForm: React.FC<EducationFormProps> = (props) => {
                 />
                 <FormField
                     control={form.control}
-                    name="schoolLocation"
+                    name="jobTitle"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel htmlFor="schoolLocation">School Location</FormLabel>
+                            <FormLabel htmlFor="jobTitle">Job Title</FormLabel>
                             <FormControl>
                                 <Input
-                                    id='schoolLocation'
-                                    placeholder="Standford, CA"
+                                    id='jobTitle'
+                                    placeholder="Web Developer"
                                     {...field}
                                 />
                             </FormControl>
@@ -85,14 +93,14 @@ const EducationForm: React.FC<EducationFormProps> = (props) => {
                 />
                 <FormField
                     control={form.control}
-                    name="degree"
+                    name="jobLocation"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel htmlFor="degree">Degree</FormLabel>
+                            <FormLabel htmlFor="jobLocation">Job Location</FormLabel>
                             <FormControl>
                                 <Input
-                                    id='degree'
-                                    placeholder="B-tech"
+                                    id='jobLocation'
+                                    placeholder="California"
                                     {...field}
                                 />
                             </FormControl>
@@ -102,31 +110,14 @@ const EducationForm: React.FC<EducationFormProps> = (props) => {
                 />
                 <FormField
                     control={form.control}
-                    name="major"
+                    name="position"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel htmlFor="major">Major</FormLabel>
+                            <FormLabel htmlFor="position">Position</FormLabel>
                             <FormControl>
                                 <Input
-                                    id='major'
-                                    placeholder="Computer Science"
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="gpa"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel htmlFor="gpa">GPA</FormLabel>
-                            <FormControl>
-                                <Input
-                                    id='gpa'
-                                    placeholder="9.6"
+                                    id='position'
+                                    placeholder="Team Lead"
                                     {...field}
                                 />
                             </FormControl>
@@ -143,7 +134,7 @@ const EducationForm: React.FC<EducationFormProps> = (props) => {
                             <FormControl>
                                 <Input
                                     id='startDate'
-                                    placeholder="Sep 2015"
+                                    placeholder="Jul 2024"
                                     {...field}
                                 />
                             </FormControl>
@@ -159,8 +150,8 @@ const EducationForm: React.FC<EducationFormProps> = (props) => {
                             <FormLabel htmlFor="endDate">End Date</FormLabel>
                             <FormControl>
                                 <Input
-                                    id='endDate'
-                                    placeholder="June 2019"
+                                    id='End Date'
+                                    placeholder="Aug 2024"
                                     {...field}
                                 />
                             </FormControl>
@@ -168,10 +159,40 @@ const EducationForm: React.FC<EducationFormProps> = (props) => {
                         </FormItem>
                     )}
                 />
+                <div className="mt-4">
+                    <FormLabel htmlFor="schoolDetail">Description</FormLabel>
+                </div>
+                {[...Array(workCount)].map((_, index) => (
+
+                    <FormField
+                        key={index}
+                        control={form.control}
+                        name={`description.${index}`}
+                        render={({ field }) => (
+                            <FormItem >
+                                <FormControl>
+                                    <Input
+                                        id='description'
+                                        placeholder="Developed User Interface For Remote Testing."
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                ))}
+                <div className="flex items-center space-x-2">
+                    <Button className="border rounded-full bg-transparent text-emerald-400 border-gray-700 hover:border-emerald-400 hover:text-emerald-400" onClick={handleAddTool}>+</Button>
+                    <Button className="border rounded-full bg-transparent text-emerald-400 border-gray-700 hover:border-emerald-400 hover:text-emerald-400" onClick={handleRemoveTool}>-</Button>
+                </div>
+
+
                 {/* <Button type='submit'>Click</Button> */}
             </form>
         </Form>
     )
 }
 
-export default EducationForm;
+export default WorkForm;

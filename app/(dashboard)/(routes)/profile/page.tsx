@@ -1,26 +1,49 @@
 "use client";
-
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ProfileSchema } from '@/schemas';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { ProfileData } from '@/app/interfaces'
+import Cookies from 'js-cookie';
 
 const Page = () => {
+    const savedProfileData = Cookies.get('profileData');
+    const initialProfileData: { profile: ProfileData } = savedProfileData ? JSON.parse(savedProfileData) : { profile: { fullName: "", email: "", phoneNumber: "", location: "", link: "" } };
+    const [profileData, setProfileData] = useState<{ profile: ProfileData }>(initialProfileData);
+
+    const [formData, setFormData] = useState({
+        fullName: '',
+        email: '',
+        phoneNumber: '',
+        location: '',
+        link: ''
+    });
 
     const form = useForm<z.infer<typeof ProfileSchema>>({
         resolver: zodResolver(ProfileSchema),
         defaultValues: {
-            fullName: '',
-            email: '',
-            phoneNumber: '',
-            location: '',
-            link: ''
+            fullName: profileData.profile?.fullName || "",
+            email: profileData.profile?.email || "",
+            phoneNumber: profileData.profile?.phoneNumber || "",
+            location: profileData.profile?.location || "",
+            link: profileData.profile?.link || ""
         }
+
     });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const subscription = form.watch((values) => {
+                const updatedProfileData = { profile: { ...profileData.profile, ...values } };
+                setProfileData(updatedProfileData);
+                Cookies.set('profileData', JSON.stringify(updatedProfileData));
+            });
+            return () => subscription.unsubscribe();
+        }
+    }, [form, profileData]);
 
     const onSubmit = async (values: z.infer<typeof ProfileSchema>) => {
         console.log(values);
@@ -116,12 +139,7 @@ const Page = () => {
                         )}
                     />
                     <div className="flex space-x-2">
-                        <Button
-                            className="bg-black text-emerald-400 border border-emerald-400"
-                            type='submit'
-                        >
-                            Next
-                        </Button>
+
 
                     </div>
                 </form>

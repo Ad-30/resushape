@@ -9,7 +9,6 @@ export const ProfileSchema = z.object({
 });
 
 export const EducationSchema = z.object({
-    sectionHeading: z.string().optional(),
     school: z.string().optional(),
     schoolLocation: z.string().optional(),
     degree: z.string().optional(),
@@ -20,33 +19,31 @@ export const EducationSchema = z.object({
 });
 
 export const WorkSchema = z.object({
-    sectionHeading: z.string().optional(),
-    company: z.string().optional(),
+    companyName: z.string().optional(),
     jobTitle: z.string().optional(),
     jobLocation: z.string().optional(),
     position: z.string().optional(),
     startDate: z.string().optional(),
     endDate: z.string().optional(),
-    description: z.string().optional(),
+    description: z.array(z.string().optional()).optional(),
 });
 
 export const SkillsSchema = z.object({
-    sectionHeading: z.string().optional(),
-    skills: z.array(z.string()).optional(),
+    skillName: z.string().optional(),
+    skillDetail: z.array(z.string().optional()).optional(),
 });
 
 export const ProjectSchema = z.object({
-    sectionHeading: z.string().optional(),
     projectName: z.string().optional(),
     projectDescription: z.string().optional(),
     projectLink: z.string().optional(),
-    toolsUsed: z.array(z.string()).optional(),
+    toolsUsed: z.array(z.string().optional()).optional(),
 });
 
 export const AwardsSchema = z.object({
-    sectionHeading: z.string().optional(),
     awardName: z.string().optional(),
     awardDate: z.string().optional(),
     awarder: z.string().optional(),
     description: z.string().optional(),
 });
+export type SkillFormValues = z.infer<typeof SkillsSchema>;
