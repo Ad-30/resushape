@@ -32,9 +32,12 @@ const Page = () => {
         // Save project data to cookie whenever it changes
         if (typeof window !== 'undefined') {
             Cookies.set('educationData', JSON.stringify(educationData));
+            // console.log(educationData);
         }
 
     }, [educationData]);
+
+    Cookies.set('educationData', JSON.stringify(educationData));
 
     const [sectionHeading, setSectionHeading] = useState(initialEducationData.sectionHeading);
 

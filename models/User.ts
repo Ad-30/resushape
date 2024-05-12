@@ -4,6 +4,7 @@ export interface User extends Document {
     name: string;
     email: string;
     image: string;
+    resumeData: Schema.Types.ObjectId;
 }
 
 const userSchema = new Schema<User>({
@@ -20,6 +21,10 @@ const userSchema = new Schema<User>({
     image: {
         type: String
     },
+    resumeData: {
+        type: Schema.Types.ObjectId,
+        ref: "Resume"
+    }
 });
 
 const User = models.User || model("User", userSchema);

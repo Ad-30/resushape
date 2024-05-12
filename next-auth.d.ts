@@ -1,5 +1,6 @@
 import 'next-auth';
 import { DefaultSession } from 'next-auth';
+import { ResumeDocument } from './models/Resume';
 
 declare module 'next-auth' {
     interface User {
@@ -9,6 +10,7 @@ declare module 'next-auth' {
     interface Session {
         user: {
             id?: string;
+            resumeDetails: ResumeDocument;
         } & DefaultSession['user']
     }
 

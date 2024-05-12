@@ -38,6 +38,8 @@ const Page = () => {
 
     }, [workData]);
 
+    Cookies.set('workData', JSON.stringify(workData));
+
     const [sectionHeading, setSectionHeading] = useState(initialWorkData.sectionHeading);
     const addWork = () => {
         const newId = workForms.length;

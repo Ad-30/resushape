@@ -1,4 +1,5 @@
 import connectToDb from "@/lib/connectToDb";
+import Resume from "@/models/Resume";
 import User from "@/models/User";
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google"
@@ -37,11 +38,17 @@ export const options: NextAuthOptions = {
         },
         async session({ session, token }) {
 
+
             const sessionUser = await User.findOne({
                 email: session.user.email
             });
 
+            const existingResume = await Resume.findOne({
+                creator: sessionUser._id.toString()
+            }).populate('creator');
+
             session.user.id = sessionUser._id.toString();
+            session.user.resumeDetails = existingResume;
 
             return session;
         },

@@ -18,12 +18,12 @@ export async function middleware(request: NextRequest, response: NextResponse) {
         return;
     }
 
-    if (isAuthRoute || isPublicRoute) {
-        if (isLoggedIn) {
-            return Response.redirect(new URL(DEFAULT_LOGIN_REDIECT, nextUrl));
-        }
-        return;
-    }
+    // if (isAuthRoute || isPublicRoute) {
+    //     if (isLoggedIn) {
+    //         return Response.redirect(new URL(DEFAULT_LOGIN_REDIECT, nextUrl));
+    //     }
+    //     return;
+    // }
 
     if (!isLoggedIn && !isPublicRoute) {
         return Response.redirect(new URL("/", nextUrl));

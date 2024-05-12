@@ -21,7 +21,8 @@ const Page = () => {
             ]
         }));
     };
-    const [awardsForms, setAwardsForms] = useState<React.ReactNode[]>(initialAwardsData?.awardsItems?.map((item: AwardsItem, index: number) => (
+
+    const [awardsForms, setAwardsForms] = useState<React.ReactNode[]>("" || initialAwardsData?.awardsItems?.map((item: AwardsItem, index: number) => (
         <AwardsForm key={index} awardsCount={index + 1} updateAwardsItem={updateAwardsItem} initialValues={item} />
     )));
     if (awardsForms.length === 0) {
@@ -35,6 +36,9 @@ const Page = () => {
         }
 
     }, [awardsData]);
+
+    Cookies.set('awardsData', JSON.stringify(awardsData));
+
     const [sectionHeading, setSectionHeading] = useState(initialAwardsData.sectionHeading);
 
     const addAward = () => {

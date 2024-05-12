@@ -1,9 +1,12 @@
-import MidPanel from '@/components/midpanel'
+
+import midpanel from '@/components/midpanel'
 import React from 'react'
 
 const page = () => {
     return (
-        <MidPanel />
+        <>
+            templates
+        </>
     )
 }
 

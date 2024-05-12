@@ -43,6 +43,8 @@ const Page = () => {
 
     }, [projectData]);
 
+    Cookies.set('projectData', JSON.stringify(projectData));
+
     const [sectionHeading, setSectionHeading] = useState(initialProjectData.sectionHeading);
 
     const addProject = () => {

@@ -5,7 +5,9 @@ export const ProfileSchema = z.object({
     email: z.string().email().optional(),
     phoneNumber: z.string().optional(),
     location: z.string().optional(),
-    link: z.string().optional()
+    link: z.string().optional(),
+    file: typeof window === 'undefined' ? z.any().optional() : z.instanceof(FileList).optional(),
+    profilePicture: z.string().optional(),
 });
 
 export const EducationSchema = z.object({

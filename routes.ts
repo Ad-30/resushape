@@ -15,9 +15,7 @@ export const publicRoutes = [
  */
 
 export const authRoutes = [
-    "/auth/sign-in",
-    "/auth/sign-up",
-    "/auth/verify"
+    "/auth"
 ]
 
 /**
@@ -33,4 +31,11 @@ export const apiAuthPrefix = "/api/auth";
  * @type {string}
  */
 
-export const DEFAULT_LOGIN_REDIECT = "/dashboard";
+export const DEFAULT_LOGIN_REDIECT = "/profile";
+
+/**
+ * The The dashboard routes where a user can go after loggedIn
+ * @type {string}
+ */
+
+export const dashboardRoutes = ["/resumeTemplates", "/profile", "/education", "/work", "/skills", "/projects", "/awards"];

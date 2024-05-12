@@ -36,6 +36,9 @@ const Page = () => {
         }
 
     }, [skillsData]);
+
+    Cookies.set('skillsData', JSON.stringify(skillsData));
+
     const [sectionHeading, setSectionHeading] = useState(initialSkillsData.sectionHeading);
     const addSkill = () => {
         const newId = skillsForms.length;

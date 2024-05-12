@@ -2,16 +2,20 @@
 
 import { Button } from "@/components/ui/button";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function Home() {
 
   const { data: session } = useSession();
-  console.log(session?.user);
+  console.log(session?.user.resumeDetails);
+  console.log(session?.user.resumeDetails.basics.profilePicture);
+
 
   const signInWithGoogle = async () => {
     await signIn("google", { callbackUrl: "/profile" })
   }
 
+  const resume = String(session?.user.resumeDetails)
 
   return (
     <>
@@ -32,6 +36,8 @@ export default function Home() {
           </Button>
         )
       }
+
+      <Image src={session?.user.resumeDetails.basics.profilePicture || ""} alt="image"  width={50} height={50}/>
 
     </>
   );

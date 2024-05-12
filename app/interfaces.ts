@@ -76,5 +76,6 @@ export interface ProfileData {
     email: string,
     phoneNumber: string,
     location: string,
-    link: string
+    link: string,
+    profilePicture: string,
 }
