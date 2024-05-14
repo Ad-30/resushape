@@ -11,15 +11,37 @@ import Cookies from 'js-cookie';
 import { deleteFile, getSignedURL } from '@/actions/upload';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { Label } from '@/components/ui/label';
 
 const Page = () => {
-    const savedProfileData = Cookies.get('profileData');
-    const initialProfileData: { profile: ProfileData } = savedProfileData ? JSON.parse(savedProfileData) : { profile: { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "" } };
+
+    const { data: session } = useSession();
+
+    const cookiesProfileData = Cookies.get('profileData');
+    const parsedProfileData = cookiesProfileData ? JSON.parse(cookiesProfileData) : null;
+
+    const savedProfileData = session?.user.resumeDetails.basics;
+    const defaultProfileData = { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "", fileName: "" };
+
+    const initialProfileData: { profile: ProfileData } = parsedProfileData?.profile && Object.values(parsedProfileData.profile).some(value => value !== "")
+        ? parsedProfileData
+        : savedProfileData
+            ? { profile: savedProfileData }
+            : { profile: defaultProfileData };
+
     const [profileData, setProfileData] = useState<{ profile: ProfileData }>(initialProfileData);
+
+    // const savedProfileData = session?.user.resumeDetails.basics;
+    // const initialProfileData: { profile: ProfileData } = savedProfileData ? { profile: savedProfileData } : { profile: { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "", fileName: "" } };
+
+    // const [profileData, setProfileData] = useState<{ profile: ProfileData }>(initialProfileData);
     const [file, setFile] = useState<File | undefined>();
     const [fileUrl, setFileUrl] = useState<string | undefined>();
     const [fileUploaded, setFileUploaded] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLabelFocused, setIsLabelFocused] = useState<boolean>(false);
+    const [fileName, setFileName] = useState<string | undefined>(profileData.profile.fileName);
 
     const form = useForm<z.infer<typeof ProfileSchema>>({
         resolver: zodResolver(ProfileSchema),
@@ -66,6 +88,7 @@ const Page = () => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target?.files?.[0];
         setFile(file);
+        setFileName(file?.name)
 
         if (fileUrl) {
             URL.revokeObjectURL(fileUrl);
@@ -87,7 +110,7 @@ const Page = () => {
             if (file) {
                 setIsLoading(true)
                 const checkSum = await computeSHA256(file)
-                const signedURLResult = await getSignedURL(file?.type, file?.size, checkSum)
+                const signedURLResult = await getSignedURL(file?.type, file?.size, checkSum, file?.name)
 
                 if (signedURLResult.failure !== undefined) {
                     console.log("error");
@@ -96,6 +119,7 @@ const Page = () => {
 
                 const { url, fileURL } = signedURLResult.success
                 profileData.profile.profilePicture = fileURL;
+                profileData.profile.fileName = file.name;
 
                 const response = await fetch(url ? url : "", {
                     method: "PUT",
@@ -111,7 +135,7 @@ const Page = () => {
                     setFileUploaded(true);
                 }
             }
-
+            setFileName(profileData.profile.fileName)
         } catch (error) {
             console.error(error);
 
@@ -126,6 +150,9 @@ const Page = () => {
             setIsLoading(true)
             await deleteFile(profileData.profile.profilePicture);
             setFileUploaded(false);
+            profileData.profile.profilePicture = "";
+            profileData.profile.fileName = "";
+            setFileName("")
 
         } catch (error) {
             console.error(error);
@@ -159,17 +186,27 @@ const Page = () => {
                                                 field.onChange(e.target?.files?.[0] ?? undefined);
                                                 handleFileChange(e)
                                             }}
-                                            disabled={fileUploaded}
-                                            className=''
+                                            onBlur={() => setIsLabelFocused(false)}
+                                            disabled={fileUploaded || Boolean(!file && fileName)}
+                                            className='hidden'
                                         />
 
-                                        {isLoading ? (<Loader2 className='animate-spin' />) : (fileUploaded ? (
+                                        <Label
+                                            htmlFor='profilePicture'
+                                            className={`cursor-pointer border-2 border-gray-700 rounded p-2 ${isLabelFocused ? 'ring-2 ring-emerald-400 text-emerald-400' : ''}`}
+                                            onMouseDown={() => setIsLabelFocused(true)}
+                                            onMouseUp={() => setIsLabelFocused(false)}
+                                        >
+                                            {fileName || 'Choose a file'}
+                                        </Label>
+
+                                        {isLoading ? (<Loader2 className='animate-spin' />) : (fileUploaded || (!file && fileName) ? (
                                             <div>
                                                 <Button size='sm' onClick={handleChangeClick}>Change</Button>
                                             </div>
                                         ) : (
                                             <>
-                                                <Button size='sm' onClick={handleFileSubmit}>Upload</Button>
+                                                {file && <Button size='sm' onClick={handleFileSubmit}>Upload</Button>}
                                             </>
                                         ))}
                                     </div>

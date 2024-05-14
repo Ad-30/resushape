@@ -17,9 +17,14 @@ const s3 = new S3Client({
 const acceptedTypes = ["image/jpeg", "image/png", "image/webp"];
 const maxFileSize = 1024 * 1024 * 10  // 10 MB
 
-const generateFileName = (bytes = 32) => crypto.randomBytes(bytes).toString("hex")
+const generateFileName = (originalFileName: string, bytes = 32) => {
+    const fileExtension = originalFileName.split('.').pop();
+    const uniqueName = crypto.randomBytes(bytes).toString("hex");
 
-export const getSignedURL = async (type: string, size: number, checksum: string) => {
+    return `${uniqueName}.${fileExtension}`;
+}
+
+export const getSignedURL = async (type: string, size: number, checksum: string, originalFileName: string) => {
 
     const session = await getServerSession(options);
 
@@ -37,7 +42,7 @@ export const getSignedURL = async (type: string, size: number, checksum: string)
 
     const putObjectCommand = new PutObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME!,
-        Key: generateFileName(),
+        Key: generateFileName(originalFileName),
         ContentType: type,
         ContentLength: size,
         ChecksumSHA256: checksum,
@@ -63,11 +68,9 @@ export const deleteFile = async (fileURL: string) => {
     if (!session) {
         return { failure: "Not authenticated" }
     }
-    // console.log("fileurl: ", fileURL);
 
     const url = new URL(fileURL);
     const key = url.pathname.substring(1);
-    // console.log("key: ", key);
 
     const deleteObjectCommand = new DeleteObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME!,
