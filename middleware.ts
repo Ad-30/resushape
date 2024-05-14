@@ -24,6 +24,15 @@ export async function middleware(request: NextRequest, response: NextResponse) {
     //     }
     //     return;
     // }
+    if (nextUrl.pathname === "/aboutus") {
+        return;
+    }
+    if (nextUrl.pathname === "/privacy") {
+        return;
+    }
+    if (nextUrl.pathname === "/cookiepolicy") {
+        return;
+    }
 
     if (!isLoggedIn && !isPublicRoute) {
         return Response.redirect(new URL("/", nextUrl));
