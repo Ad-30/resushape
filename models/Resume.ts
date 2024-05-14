@@ -15,6 +15,7 @@ interface Basics {
     location: string;
     link: string;
     profilePicture: string;
+    fileName: string,
 }
 
 interface Education {
@@ -88,6 +89,7 @@ const resumeSchema = new Schema<ResumeDocument>({
         location: String,
         link: String,
         profilePicture: String,
+        fileName: String,
     },
     education: [
         {
