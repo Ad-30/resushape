@@ -19,13 +19,13 @@ const Page = () => {
     const cookiesProjectsData = Cookies.get('projectData');
     const parsedProjectsData = cookiesProjectsData ? JSON.parse(cookiesProjectsData) : null;
 
-    const savedProjectsData = session?.user.resumeDetails.projects;
+    const savedProjectsData = session?.user?.resumeDetails?.projects;
     const defaultProjectsData = { sectionHeading: '', projectItems: [] };
 
-    const initialProjectData: { sectionHeading: string, projectItems: ProjectItem[] } = parsedProjectsData?.projectItems && parsedProjectsData.projectItems.length > 0
+    const initialProjectData: { sectionHeading: string, projectItems: ProjectItem[] } = parsedProjectsData && (parsedProjectsData.projectItems.length > 0 || parsedProjectsData.sectionHeading !== "")
         ? parsedProjectsData
-        : savedProjectsData && savedProjectsData.length > 0
-            ? { sectionHeading: session.user.resumeDetails.headings.projects, projectItems: savedProjectsData }
+        : savedProjectsData && (savedProjectsData.length > 0 || session?.user.resumeDetails.headings.projects !== "")
+            ? { sectionHeading: session?.user.resumeDetails.headings.projects, projectItems: savedProjectsData }
             : defaultProjectsData;
 
     const [projectData, setProjectData] = useState<{ sectionHeading: string, projectItems: ProjectItem[] }>(initialProjectData);

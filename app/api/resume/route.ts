@@ -107,24 +107,39 @@ export const GET = async (request: Request) => {
     }
 }
 
-export const Delete = async (request: Request) => {
+export const DELETE = async (request: Request) => {
+
+    const session = await getServerSession(options);
     await connectToDb();
+
     try {
-        const session = await getServerSession(options);
-        const resumeID = session?.user.resumeDetails._id;
-        const resume = await Resume.findByIdAndDelete(resumeID);
-        return Response.json(
-            {
-                success: true,
-                message: "Successfully Deleted"
-            },
-            { status: 200 }
-        )
-    } catch (error) {
+
+        if (Boolean(session?.user.resumeDetails)) {
+            await Resume.findByIdAndDelete(session?.user.resumeDetails._id);
+
+            return Response.json(
+                {
+                    success: true,
+                    message: 'Resume deleted successfully'
+                },
+                { status: 200 }
+            )
+        }
         return Response.json(
             {
                 success: false,
-                message: error
+                message: 'Resume not found'
+            },
+            { status: 404 }
+        )
+
+    } catch (error) {
+        console.log(error);
+
+        return Response.json(
+            {
+                success: false,
+                message: 'Could not delete resume'
             },
             { status: 500 }
         )

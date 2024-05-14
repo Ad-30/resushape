@@ -29,29 +29,37 @@ export function Navbar(props: any) {
                     Sign In
                 </Link>) : (<div className="">
                     <DropdownMenu >
+
                         <DropdownMenuTrigger asChild>
                             <Avatar className="h-8 w-8 cursor-pointer">
                                 <AvatarImage alt="user" src={`${user?.image}`} />
                                 <AvatarFallback>U</AvatarFallback>
                             </Avatar>
                         </DropdownMenuTrigger>
+
                         <DropdownMenuContent align="end" className="w-48 bg-gray-900 text-gray-50 border-none">
+
                             <DropdownMenuLabel className="font-semibold">{user?.name}</DropdownMenuLabel>
                             <DropdownMenuSeparator className="bg-emerald-400" />
+
                             <DropdownMenuItem className="lg:hidden">
                                 <Link className={`text-sm font-medium hover:text-emerald-500 transition-colors ${currentPathname === '/' ? 'text-emerald-500' : ''}`} href="/">
                                     Home
                                 </Link>
                             </DropdownMenuItem>
+
                             <DropdownMenuItem className="lg:hidden">
                                 <Link className={`text-sm font-medium hover:text-emerald-500 transition-colors ${currentPathname === '/aboutus' ? 'text-emerald-500' : ''}`} href="/aboutus">
                                     About Us
                                 </Link>
                             </DropdownMenuItem >
-                            {session && <DropdownMenuItem className="lg:hidden"><Link className="text-sm font-medium hover:text-emerald-500 transition-colors" href="/profile">
-                                Create Resume
-                            </Link></DropdownMenuItem>}
-                            {/* <DropdownMenuItem> */}
+
+                            {session &&
+                                <DropdownMenuItem className="lg:hidden">
+                                    <Link className="text-sm font-medium hover:text-emerald-500 transition-colors" href="/profile">
+                                        Create Resume
+                                    </Link>
+                                </DropdownMenuItem>}
                             <Button
                                 className="rounded-md w-full border border-emerald-600 bg-black px-3 py-2 text-sm font-medium text-emerald-400 transition-colors hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-gray-950 hover:text-gray-50 mt-2"
                                 onClick={() => signOut()}
@@ -59,7 +67,6 @@ export function Navbar(props: any) {
                                 <LogOutIcon className="mr-2 h-4 w-4" />
                                 Sign Out
                             </Button>
-                            {/* </DropdownMenuItem> */}
 
                         </DropdownMenuContent>
                     </DropdownMenu>

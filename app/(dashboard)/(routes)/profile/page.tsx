@@ -21,7 +21,7 @@ const Page = () => {
     const cookiesProfileData = Cookies.get('profileData');
     const parsedProfileData = cookiesProfileData ? JSON.parse(cookiesProfileData) : null;
 
-    const savedProfileData = session?.user.resumeDetails.basics;
+    const savedProfileData = session?.user?.resumeDetails?.basics;
     const defaultProfileData = { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "", fileName: "" };
 
     const initialProfileData: { profile: ProfileData } = parsedProfileData?.profile && Object.values(parsedProfileData.profile).some(value => value !== "")

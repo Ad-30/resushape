@@ -20,13 +20,13 @@ const Page = () => {
     const cookiesSkillsData = Cookies.get('skillsData');
     const parsedSkillsData = cookiesSkillsData ? JSON.parse(cookiesSkillsData) : null;
 
-    const savedSkillsData = session?.user.resumeDetails.skills;
+    const savedSkillsData = session?.user?.resumeDetails?.skills;
     const defaultSkillsData = { sectionHeading: '', skillsItems: [] };
 
-    const initialSkillsData: { sectionHeading: string, skillsItems: SkillsItem[] } = (parsedSkillsData?.skillsItems && parsedSkillsData.skillsItems.length > 0 && parsedSkillsData.sectionHeading !== "")
+    const initialSkillsData: { sectionHeading: string, skillsItems: SkillsItem[] } = parsedSkillsData?.skillsItems && (parsedSkillsData.skillsItems.length > 0 || parsedSkillsData.sectionHeading !== "")
         ? parsedSkillsData
-        : (savedSkillsData && savedSkillsData.length > 0 && session.user.resumeDetails.headings.skills !== "")
-            ? { sectionHeading: session.user.resumeDetails.headings.skills, skillsItems: savedSkillsData }
+        : savedSkillsData && (savedSkillsData.length > 0 || session?.user.resumeDetails.headings.skills !== "")
+            ? { sectionHeading: session?.user.resumeDetails.headings.skills, skillsItems: savedSkillsData }
             : defaultSkillsData;
 
     const [skillsData, setSkillsData] = useState<{ sectionHeading: string, skillsItems: SkillsItem[] }>(initialSkillsData);

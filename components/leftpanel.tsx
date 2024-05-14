@@ -17,7 +17,7 @@ export default function LeftPanel() {
     const savedProjectData = Cookies.get('projectData');
     const savedAwardsData = Cookies.get('awardsData');
 
-    const profileData: { profile: ProfileData } = savedProfileData ? JSON.parse(savedProfileData) : { profile: { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "" } };
+    const profileData: { profile: ProfileData } = savedProfileData ? JSON.parse(savedProfileData) : { profile: { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "", fileName: "" } };
     const educationData: { sectionHeading: string, educationItems: EducationItem[] } = savedEducationData ? JSON.parse(savedEducationData) : { sectionHeading: '', educationItems: [] };
     const workData: { sectionHeading: string, workItems: WorkItem[] } = savedWorkData ? JSON.parse(savedWorkData) : { sectionHeading: '', workItems: [] };
     const skillsData: { sectionHeading: string, skillsItems: SkillsItem[] } = savedSkillsData ? JSON.parse(savedSkillsData) : { sectionHeading: '', skillsItems: [] };
