@@ -78,4 +78,5 @@ export interface ProfileData {
     location: string,
     link: string,
     profilePicture: string,
+    fileName: string,
 }

@@ -6,10 +6,27 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { EducationItem } from '@/app/interfaces'
 import Cookies from 'js-cookie';
+import { useSession } from 'next-auth/react';
 
 const Page = () => {
-    const savedEducationData = Cookies.get('educationData');
-    const initialEducationData: { sectionHeading: string, educationItems: EducationItem[] } = savedEducationData ? JSON.parse(savedEducationData) : { sectionHeading: '', educationItems: [] };
+
+    const { data: session } = useSession();
+
+    // const savedEducationData = session?.user.resumeDetails.education;
+    // const initialEducationData: { sectionHeading: string, educationItems: EducationItem[] } = savedEducationData ? { sectionHeading: session.user.resumeDetails.headings.education, educationItems: savedEducationData } : { sectionHeading: '', educationItems: [] };
+
+    const cookiesEducationData = Cookies.get('educationData');
+    const parsedEducationData = cookiesEducationData ? JSON.parse(cookiesEducationData) : null;
+
+    const savedEducationData = session?.user.resumeDetails.education;
+    const defaultEducationData = { sectionHeading: '', educationItems: [] }
+
+    const initialEducationData: { sectionHeading: string, educationItems: EducationItem[] } = parsedEducationData?.educationItems && parsedEducationData.educationItems.length > 0
+        ? parsedEducationData
+        : savedEducationData && savedEducationData.length > 0
+            ? { sectionHeading: session.user.resumeDetails.headings.education, educationItems: savedEducationData }
+            : defaultEducationData;
+
     const [educationData, setEducationData] = useState<{ sectionHeading: string, educationItems: EducationItem[] }>(initialEducationData);
 
     const updateEducationItem = (id: number, newItem: EducationItem) => {

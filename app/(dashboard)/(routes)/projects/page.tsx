@@ -6,11 +6,27 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ProjectItem } from '@/app/interfaces';
 import Cookies from 'js-cookie';
+import { useSession } from 'next-auth/react';
 
 
 const Page = () => {
-    const savedProjectData = Cookies.get('projectData');
-    const initialProjectData: { sectionHeading: string, projectItems: ProjectItem[] } = savedProjectData ? JSON.parse(savedProjectData) : { sectionHeading: '', projectItems: [] };
+
+    const { data: session } = useSession();
+
+    // const savedProjectData = session?.user.resumeDetails.projects;
+    // const initialProjectData: { sectionHeading: string, projectItems: ProjectItem[] } = savedProjectData ? { sectionHeading: session.user.resumeDetails.headings.projects, projectItems: session.user.resumeDetails.projects } : { sectionHeading: '', projectItems: [] };
+
+    const cookiesProjectsData = Cookies.get('projectData');
+    const parsedProjectsData = cookiesProjectsData ? JSON.parse(cookiesProjectsData) : null;
+
+    const savedProjectsData = session?.user.resumeDetails.projects;
+    const defaultProjectsData = { sectionHeading: '', projectItems: [] };
+
+    const initialProjectData: { sectionHeading: string, projectItems: ProjectItem[] } = parsedProjectsData?.projectItems && parsedProjectsData.projectItems.length > 0
+        ? parsedProjectsData
+        : savedProjectsData && savedProjectsData.length > 0
+            ? { sectionHeading: session.user.resumeDetails.headings.projects, projectItems: savedProjectsData }
+            : defaultProjectsData;
 
     const [projectData, setProjectData] = useState<{ sectionHeading: string, projectItems: ProjectItem[] }>(initialProjectData);
 

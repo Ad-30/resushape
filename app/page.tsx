@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { convertToApplicantData } from "@/utils/dataConversion";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Landing } from "@/components/landing";
 

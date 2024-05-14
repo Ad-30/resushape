@@ -6,11 +6,27 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { WorkItem } from '@/app/interfaces';
 import Cookies from 'js-cookie';
+import { useSession } from 'next-auth/react';
 
 
 const Page = () => {
-    const savedWorkData = Cookies.get('workData');
-    const initialWorkData: { sectionHeading: string, workItems: WorkItem[] } = savedWorkData ? JSON.parse(savedWorkData) : { sectionHeading: '', workItems: [] };
+
+    const { data: session } = useSession();
+
+    // const savedWorkData = session?.user.resumeDetails.work;
+    // const initialWorkData: { sectionHeading: string, workItems: WorkItem[] } = savedWorkData ? { sectionHeading: session.user.resumeDetails.headings.work, workItems: session.user.resumeDetails.work } : { sectionHeading: '', workItems: [] };
+
+    const cookiesWorkData = Cookies.get('workData');
+    const parsedWorkData = cookiesWorkData ? JSON.parse(cookiesWorkData) : null;
+
+    const savedWorkData = session?.user.resumeDetails.work;
+    const defaultWorkData = { sectionHeading: '', workItems: [] }
+
+    const initialWorkData: { sectionHeading: string, workItems: WorkItem[] } = parsedWorkData?.workItems && parsedWorkData.workItems.length > 0
+        ? parsedWorkData
+        : savedWorkData && savedWorkData.length > 0
+            ? { sectionHeading: session.user.resumeDetails.headings.work, workItems: savedWorkData }
+            : defaultWorkData;
 
     const [workData, setWorkData] = useState<{ sectionHeading: string, workItems: WorkItem[] }>(initialWorkData);
 

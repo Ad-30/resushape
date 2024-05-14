@@ -6,11 +6,29 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { AwardsItem } from '@/app/interfaces'
 import Cookies from 'js-cookie';
+import { useSession } from 'next-auth/react';
 
 const Page = () => {
-    const savedAwardsData = Cookies.get('awardsData');
-    const initialAwardsData: { sectionHeading: string, awardsItems: AwardsItem[] } = savedAwardsData ? JSON.parse(savedAwardsData) : { sectionHeading: '', awardsItems: [] };
+
+    const { data: session } = useSession();
+
+    // const savedAwardsData = session?.user.resumeDetails.awards;
+    // const initialAwardsData: { sectionHeading: string, awardsItems: AwardsItem[] } = savedAwardsData ? { sectionHeading: session.user.resumeDetails.headings.awards, awardsItems: session.user.resumeDetails.awards } : { sectionHeading: '', awardsItems: [] };
+
+    const cookiesAwardsData = Cookies.get('awardsData');
+    const parsedAwardsData = cookiesAwardsData ? JSON.parse(cookiesAwardsData) : null;
+
+    const savedAwardsData = session?.user.resumeDetails.awards;
+    const defaultAwardsData = { sectionHeading: '', awardsItems: [] };
+
+    const initialAwardsData: { sectionHeading: string, awardsItems: AwardsItem[] } = parsedAwardsData?.awardsItems && parsedAwardsData.awardsItems.length > 0
+        ? parsedAwardsData
+        : savedAwardsData && savedAwardsData.length > 0
+            ? { sectionHeading: session.user.resumeDetails.headings.awards, awardsItems: savedAwardsData }
+            : defaultAwardsData;
+
     const [awardsData, setAwardsData] = useState<{ sectionHeading: string, awardsItems: AwardsItem[] }>(initialAwardsData);
+
     const updateAwardsItem = (id: number, newItem: AwardsItem) => {
         setAwardsData(prevState => ({
             ...prevState,
