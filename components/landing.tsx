@@ -5,15 +5,27 @@ import { signOut, useSession } from "next-auth/react"
 import { StepForward } from 'lucide-react';
 import { Pen } from 'lucide-react';
 import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
+import { RouteMatcher } from "next/dist/server/future/route-matchers/route-matcher";
 export function Landing(props: any) {
   const { data: session } = useSession();
-  // const user: User = session?.user as User;
-  console.log(session?.user.resumeDetails);
+  const router = useRouter()
+  const createNewFunction = async () => {
+    try {
+      const response = await axios.post('/api/resume');
+      console.log(response);
+      router.push('/profile');
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="flex  flex-col min-h-[100dvh] bg-gray-950 text-gray-50">
       <Navbar signInWithGoogle={props.signInWithGoogle} />
       <main className="flex-1">
-        <section className="w-full h-screen py-12 md:py-24 lg:py-32">
+        <section className="w-full lg:h-screen py-12 md:py-24 lg:py-32">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
@@ -25,20 +37,20 @@ export function Landing(props: any) {
                     Resumake is the easiest way to build a stunning resume using your personal data. Sign in with Google
                     and let us handle the rest.
                   </p>
-                  {!session ? <button className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-slate-200 dark:hover:border-slate-500 hover:text-white dark:hover:text-slate-300 hover:shadow transition duration-150" onClick={props.signInWithGoogle}>
+                  {!session ? <Button className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-slate-200 dark:hover:border-slate-500 hover:text-white dark:hover:text-slate-300 hover:shadow transition duration-150" onClick={props.signInWithGoogle}>
                     <Image className="w-6 h-6" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo" width="20" height="20" />
                     <span>Sign up with Google</span>
-                  </button> : <>
-                    <Link href="/profile">
-                      <button className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-emerald-400 dark:hover:border-slate-500 hover:text-emerald-400 dark:hover:text-slate-300 hover:shadow transition duration-150">
+                  </Button> : <>
+                    <Link href="/profile" className="mt-20">
+                      <Button className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-emerald-400 dark:hover:border-slate-500 hover:text-emerald-400 dark:hover:text-slate-300 hover:shadow transition duration-150">
                         <StepForward className="text-emerald-400" />
                         <span>Continue Session</span>
-                      </button>
+                      </Button>
                     </Link>
 
-                    <button className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-emerald-400 dark:hover:border-slate-500 hover:text-emerald-400 dark:hover:text-slate-300 hover:shadow transition duration-150 " >
+                    <Button className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-emerald-400 dark:hover:border-slate-500 hover:text-emerald-400 dark:hover:text-slate-300 hover:shadow transition duration-150 " >
                       <Pen className="text-emerald-400" /><span>Create new Resume</span>
-                    </button>
+                    </Button>
                   </>}
 
                 </div>

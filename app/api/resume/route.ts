@@ -106,3 +106,28 @@ export const GET = async (request: Request) => {
         )
     }
 }
+
+export const Delete = async (request: Request) => {
+    await connectToDb();
+    try {
+        const session = await getServerSession(options);
+        const resumeID = session?.user.resumeDetails._id;
+        const resume = await Resume.findByIdAndDelete(resumeID);
+        return Response.json(
+            {
+                success: true,
+                message: "Successfully Deleted"
+            },
+            { status: 200 }
+        )
+    } catch (error) {
+        return Response.json(
+            {
+                success: false,
+                message: error
+            },
+            { status: 500 }
+        )
+    }
+
+}
