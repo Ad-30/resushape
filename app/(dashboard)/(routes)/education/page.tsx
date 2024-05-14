@@ -18,12 +18,12 @@ const Page = () => {
     const cookiesEducationData = Cookies.get('educationData');
     const parsedEducationData = cookiesEducationData ? JSON.parse(cookiesEducationData) : null;
 
-    const savedEducationData = session?.user.resumeDetails.education;
+    const savedEducationData = session?.user?.resumeDetails?.education;
     const defaultEducationData = { sectionHeading: '', educationItems: [] }
 
-    const initialEducationData: { sectionHeading: string, educationItems: EducationItem[] } = parsedEducationData?.educationItems && parsedEducationData.educationItems.length > 0
+    const initialEducationData: { sectionHeading: string, educationItems: EducationItem[] } = parsedEducationData?.educationItems && (parsedEducationData.educationItems.length > 0 || parsedEducationData.sectionHeading !== "")
         ? parsedEducationData
-        : savedEducationData && savedEducationData.length > 0
+        : savedEducationData && (savedEducationData.length > 0 || session.user.resumeDetails.headings.education !== '')
             ? { sectionHeading: session.user.resumeDetails.headings.education, educationItems: savedEducationData }
             : defaultEducationData;
 

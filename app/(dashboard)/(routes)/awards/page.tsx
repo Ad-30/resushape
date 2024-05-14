@@ -18,13 +18,13 @@ const Page = () => {
     const cookiesAwardsData = Cookies.get('awardsData');
     const parsedAwardsData = cookiesAwardsData ? JSON.parse(cookiesAwardsData) : null;
 
-    const savedAwardsData = session?.user.resumeDetails.awards;
+    const savedAwardsData = session?.user?.resumeDetails?.awards;
     const defaultAwardsData = { sectionHeading: '', awardsItems: [] };
 
-    const initialAwardsData: { sectionHeading: string, awardsItems: AwardsItem[] } = parsedAwardsData?.awardsItems && parsedAwardsData.awardsItems.length > 0
+    const initialAwardsData: { sectionHeading: string, awardsItems: AwardsItem[] } = parsedAwardsData?.awardsItems && (parsedAwardsData.awardsItems.length > 0 || parsedAwardsData.sectionHeading !== "")
         ? parsedAwardsData
-        : savedAwardsData && savedAwardsData.length > 0
-            ? { sectionHeading: session.user.resumeDetails.headings.awards, awardsItems: savedAwardsData }
+        : savedAwardsData && (savedAwardsData.length > 0 || session?.user.resumeDetails.headings.awards !== "")
+            ? { sectionHeading: session?.user.resumeDetails.headings.awards, awardsItems: savedAwardsData }
             : defaultAwardsData;
 
     const [awardsData, setAwardsData] = useState<{ sectionHeading: string, awardsItems: AwardsItem[] }>(initialAwardsData);

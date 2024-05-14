@@ -11,16 +11,12 @@ export default function Home() {
   console.log(session?.user);
 
   const signInWithGoogle = async () => {
-    await signIn("google", { callbackUrl: "/profile" })
+    await signIn("google")
   }
-
 
   return (
     <>
-
       <Landing signInWithGoogle={signInWithGoogle} />
-
-
     </>
   );
 }

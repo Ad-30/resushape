@@ -19,13 +19,13 @@ const Page = () => {
     const cookiesWorkData = Cookies.get('workData');
     const parsedWorkData = cookiesWorkData ? JSON.parse(cookiesWorkData) : null;
 
-    const savedWorkData = session?.user.resumeDetails.work;
+    const savedWorkData = session?.user?.resumeDetails?.work;
     const defaultWorkData = { sectionHeading: '', workItems: [] }
 
-    const initialWorkData: { sectionHeading: string, workItems: WorkItem[] } = parsedWorkData?.workItems && parsedWorkData.workItems.length > 0
+    const initialWorkData: { sectionHeading: string, workItems: WorkItem[] } = parsedWorkData?.workItems && (parsedWorkData.workItems.length > 0 || parsedWorkData.sectionHeading !== "")
         ? parsedWorkData
-        : savedWorkData && savedWorkData.length > 0
-            ? { sectionHeading: session.user.resumeDetails.headings.work, workItems: savedWorkData }
+        : savedWorkData && (savedWorkData.length > 0 || session?.user.resumeDetails.headings.work === "")
+            ? { sectionHeading: session?.user.resumeDetails.headings.work, workItems: savedWorkData }
             : defaultWorkData;
 
     const [workData, setWorkData] = useState<{ sectionHeading: string, workItems: WorkItem[] }>(initialWorkData);
