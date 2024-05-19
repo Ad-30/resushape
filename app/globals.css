@@ -2,6 +2,16 @@
   @tailwind components;
   @tailwind utilities;
 
+  @layer components {
+    @keyframes move {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .slide {
+      animation: move 2s linear infinite;
+    }
+  }
+
   @layer base {
     :root {
       --background: 0 0% 100%;

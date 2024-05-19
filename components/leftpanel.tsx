@@ -6,9 +6,16 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import './List.css';
 import { AwardsItem, EducationItem, ProfileData, ProjectItem, SkillsItem, WorkItem } from "@/app/interfaces";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ConvertedApplicantData, convertToApplicantData } from "@/utils/dataConversion";
+import { useSession } from "next-auth/react";
 
-export default function LeftPanel() {
+interface LeftPanelProps {
+    setResumeUrl: (url: string) => void;
+    setIsLoading: (isLoading: boolean) => void;
+}
+
+export default function LeftPanel({ setResumeUrl, setIsLoading }: LeftPanelProps) {
 
     const savedProfileData = Cookies.get('profileData');
     const savedEducationData = Cookies.get('educationData');
@@ -16,6 +23,7 @@ export default function LeftPanel() {
     const savedSkillsData = Cookies.get('skillsData');
     const savedProjectData = Cookies.get('projectData');
     const savedAwardsData = Cookies.get('awardsData');
+    const savedTemplateData = Cookies.get('templateData');
 
     const profileData: { profile: ProfileData } = savedProfileData ? JSON.parse(savedProfileData) : { profile: { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "", fileName: "" } };
     const educationData: { sectionHeading: string, educationItems: EducationItem[] } = savedEducationData ? JSON.parse(savedEducationData) : { sectionHeading: '', educationItems: [] };
@@ -23,9 +31,28 @@ export default function LeftPanel() {
     const skillsData: { sectionHeading: string, skillsItems: SkillsItem[] } = savedSkillsData ? JSON.parse(savedSkillsData) : { sectionHeading: '', skillsItems: [] };
     const projectData: { sectionHeading: string, projectItems: ProjectItem[] } = savedProjectData ? JSON.parse(savedProjectData) : { sectionHeading: '', projectItems: [] };
     const awardsData: { sectionHeading: string, awardsItems: AwardsItem[] } = savedAwardsData ? JSON.parse(savedAwardsData) : { sectionHeading: '', awardsItems: [] };
+    const templateData: { selectedTemplate: Number } = savedTemplateData ? JSON.parse(savedTemplateData) : { selectedTemplate: 1 }
 
-    const selectedTemplate = 1;
+    const { data: session } = useSession();
     const router = useRouter();
+
+    const resumeDetails = {
+        creator: session?.user.id,
+        selectedTemplate: templateData.selectedTemplate,
+        headings: {
+            education: educationData.sectionHeading,
+            work: workData.sectionHeading,
+            skills: skillsData.sectionHeading,
+            projects: projectData.sectionHeading,
+            awards: awardsData.sectionHeading
+        },
+        basics: profileData.profile,
+        education: educationData.educationItems,
+        work: workData.workItems,
+        skills: skillsData.skillsItems,
+        projects: projectData.projectItems,
+        awards: awardsData.awardsItems
+    }
 
     useEffect(() => {
         console.log(profileData);
@@ -34,14 +61,50 @@ export default function LeftPanel() {
         console.log(skillsData);
         console.log(projectData);
         console.log(awardsData);
+        console.log(templateData);
+
     }, [profileData, educationData, workData, skillsData, projectData, awardsData])
 
-    const handleOnClick = () => {
-        router.refresh()
+    const handleSubmit = async (applicantData: ConvertedApplicantData, imageURL: string) => {
+
+        setIsLoading(true);
 
         try {
-            const response = axios.post('/api/resume', {
-                selectedTemplate: selectedTemplate,
+            const formData = new FormData();
+            formData.append('applicantData', JSON.stringify(applicantData));
+            formData.append('imageURL', imageURL);
+
+            const response = await fetch('https://ad30.pythonanywhere.com/latexResume', {
+                method: 'POST',
+                body: formData,
+                // headers: {
+                //     'X-Access-Key': process.env.X_Access_Key || ''
+                // },
+            });
+
+            console.log(response);
+
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            setResumeUrl(url);
+
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleOnClick = async () => {
+
+        try {
+            const response = await axios.post('/api/resume', {
+                selectedTemplate: templateData.selectedTemplate,
                 basics: profileData,
                 education: educationData,
                 work: workData,
@@ -51,6 +114,8 @@ export default function LeftPanel() {
             })
         } catch (error) {
             console.error(error);
+        } finally {
+            await handleSubmit(convertToApplicantData(resumeDetails), profileData.profile.profilePicture || '')
         }
     }
 

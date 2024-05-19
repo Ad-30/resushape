@@ -2,20 +2,39 @@ import { Navbar } from "./navbar"
 import { Footer } from "./footer"
 import Image from 'next/image'
 import { useSession } from "next-auth/react"
-import { Check, StepForward } from 'lucide-react';
+import { Check, Coffee, StepForward } from 'lucide-react';
 import { Pen } from 'lucide-react';
 import { Button } from "./ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import Link from "next/link";
 import axios from "axios";
 import Cookies from 'js-cookie';
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { useEffect, useRef } from "react";
 
 export function Landing(props: any) {
 
   const { data: session } = useSession();
   const router = useRouter();
 
-  console.log((Boolean(session?.user.resumeDetails)));
+  const savedProfileData = Cookies.get('profileData');
+  const savedEducationData = Cookies.get('educationData');
+  const savedWorkData = Cookies.get('workData');
+  const savedSkillsData = Cookies.get('skillsData');
+  const savedProjectData = Cookies.get('projectData');
+  const savedAwardsData = Cookies.get('awardsData');
 
   const continueSessionClick = () => {
     router.push('/profile');
@@ -26,9 +45,6 @@ export function Landing(props: any) {
 
       const response = await axios.delete('/api/resume')
       console.log(response);
-      if (response) {
-
-      }
 
     } catch (error) {
       console.error(error);
@@ -40,6 +56,7 @@ export function Landing(props: any) {
       Cookies.remove('skillsData');
       Cookies.remove('projectData');
       Cookies.remove('awardsData');
+      Cookies.remove('templateData');
       router.push('/resumeTemplates')
     }
   }
@@ -52,17 +69,15 @@ export function Landing(props: any) {
 
       <main className="flex-1">
 
-        <section className="w-full h-screen py-12 md:py-24 lg:py-32">
+        <section className="w-full py-12 md:py-24 lg:py-28 lg:pb-128 relative">
 
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-2 sm:items-center">
-
+                <div className="space-y-4 sm:items-center">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-emerald-500 mt-5">
                     Create a Professional Resume in Minutes
                   </h1>
-
                   <p className="max-w-[600px] text-gray-400 md:text-xl dark:text-gray-400">
                     Resumake is the easiest way to build a stunning resume using your personal data. Sign in with Google
                     and let us handle the rest.
@@ -79,7 +94,7 @@ export function Landing(props: any) {
                     :
                     <>
 
-                      {Boolean(session?.user.resumeDetails) &&
+                      {(Boolean(session?.user.resumeDetails) || Boolean(savedProfileData) || Boolean(savedEducationData) || Boolean(savedWorkData) || Boolean(savedSkillsData) || Boolean(savedProjectData) || Boolean(savedAwardsData)) &&
                         <Button
                           className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-emerald-400 dark:hover:border-slate-500 hover:text-emerald-400 dark:hover:text-slate-300 hover:shadow transition duration-150"
                           onClick={continueSessionClick}
@@ -89,55 +104,72 @@ export function Landing(props: any) {
                         </Button>
                       }
 
-                      <Button
-                        className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-emerald-400 dark:hover:border-slate-500 hover:text-emerald-400 dark:hover:text-slate-300 hover:shadow transition duration-150 "
-                        onClick={newResumeClick}
-                      >
-                        <Pen className="text-emerald-400" /><span>Create new Resume</span>
-                      </Button>
-
+                      {(Boolean(session?.user.resumeDetails) || Boolean(savedProfileData) || Boolean(savedEducationData) || Boolean(savedWorkData) || Boolean(savedSkillsData) || Boolean(savedProjectData) || Boolean(savedAwardsData)) ?
+                        (
+                          <AlertDialog>
+                            <AlertDialogTrigger>
+                              <Button
+                                className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-emerald-400 dark:hover:border-slate-500 hover:text-emerald-400 dark:hover:text-slate-300 hover:shadow transition duration-150 "
+                              >
+                                <Pen className="text-emerald-400" /><span>Create new Resume</span>
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent className=" bg-gray-800 border-0">
+                              <AlertDialogHeader>
+                                <AlertDialogTitle className="text-emerald-400">Are you absolutely sure?</AlertDialogTitle>
+                                <AlertDialogDescription className=" text-gray-300">
+                                  This will permanently delete your progress
+                                  and remove your data from our servers.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel className="">Cancel</AlertDialogCancel>
+                                <AlertDialogAction onClick={newResumeClick} className="hover:bg-white hover:text-gray-800">Continue</AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        ) : (
+                          <Button
+                            className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-emerald-400 dark:hover:border-slate-500 hover:text-emerald-400 dark:hover:text-slate-300 hover:shadow transition duration-150 "
+                            onClick={newResumeClick}
+                          >
+                            <Pen className="text-emerald-400" /><span>Create new Resume</span>
+                          </Button>
+                        )}
 
                     </>
                   }
 
                 </div>
-
               </div>
-
-              <div className=" hidden lg:block relative  w-full h-full">
-
-                <div className="hover:border-white hover:shadow-white">
-                  <Image
-                    alt="Hero"
-                    className="absolute  inset-0 mx-auto aspect-video overflow-hidden rounded-xl lg:aspect-square z-0 scale-x-75  lg:mt-20 lg:mr-20 "
-                    height="550"
-                    src="/home.jpg"
-                    width="550"
-                    style={{ zIndex: 1 }}
-                  />
+              <div className="lg:block flex flex-col justify-center space-y-4 px-5 py-5">
+                <div className="relative flex justify-center items-center" style={{ paddingTop: '100%' }}>
+                  <div className="absolute inset-0 flex justify-center items-center">
+                    <Image
+                      alt="Hero"
+                      className="aspect-video overflow-hidden rounded-xl object-contain h-5/6 w-2/3"
+                      src="/home2.jpg"
+                      style={{ zIndex: 0 }}
+                      width={325}
+                      height={500}
+                    />
+                  </div>
+                  <div className="absolute inset-0 flex justify-center items-center">
+                    <Image
+                      alt="Hero"
+                      className="aspect-video overflow-hidden rounded-xl object-contain h-5/6 w-2/3 mt-20 mr-20"
+                      src="/home.jpg"
+                      style={{ zIndex: 1 }}
+                      width={325}
+                      height={500}
+                    />
+                  </div>
                 </div>
-                {/* <Image
-                  alt="Hero"
-                  className="mx-auto aspect-video overflow-hidden rounded-xl object-bottom sm:w-full lg:order-last lg:aspect-square"
-                  height="550"
-                  src="/home1.jpg"
-                  width="550"
-                /> */}
-                <Image
-                  alt="Hero"
-                  className="mx-auto  inset-0 aspect-video overflow-hidden rounded-xl object-bottom sm:w-full lg:order-last z-1 lg:aspect-square scale-x-75 hover:border-white hover:shadow-white"
-                  height="550"
-                  src="/home2.jpg"
-                  width="550"
-                  style={{ zIndex: 0 }}
-                />
               </div>
-
             </div>
-
           </div>
-
         </section>
+
 
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-900">
 
@@ -226,6 +258,41 @@ export function Landing(props: any) {
                 src="/3293513.jpg"
                 width="700"
               />
+            </div>
+          </div>
+
+        </section>
+
+        <section className="w-full bg-gray-950 py-12 md:py-16 lg:py-20">
+
+          <div className="container flex flex-col items-center gap-6 px-4 md:px-6">
+            <div className="space-y-4 text-center">
+              <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm font-medium text-emerald-900 dark:bg-emerald-900 dark:text-emerald-100">
+                Contribute
+              </div>
+              <h2 className="text-3xl font-extrabold tracking-tight text-gray-50 sm:text-4xl md:text-5xl">
+                Join Us on GitHub
+              </h2>
+              <p className="text-gray-400 md:text-xl">
+                Resumake is an open-source project, and we welcome contributions from the community. If you&apos;d like to get
+                involved, check out our GitHub repository.
+              </p>
+            </div>
+            <div className="flex flex-col items-center gap-4 sm:flex-row">
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md bg-emerald-600 px-6 text-sm font-medium text-gray-50 shadow-sm transition-colors hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:bg-emerald-900 dark:hover:bg-emerald-800 dark:focus:ring-emerald-700"
+                href="https://github.com/Ad-30/resumemaker" target="blank"
+              >
+                <GitHubLogoIcon className="mr-2 h-5 w-5" />
+                GitHub Repository
+              </Link>
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md border border-emerald-600 bg-transparent px-6 text-sm font-medium text-emerald-600 transition-colors hover:bg-emerald-600 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:border-emerald-900 dark:text-emerald-900 dark:hover:bg-emerald-900 dark:hover:text-gray-50 dark:focus:ring-emerald-700"
+                href="https://buymeacoffee.com/ad30" target="blank"
+              >
+                <Coffee className="mr-2 h-5 w-5" />
+                Buy Us a Coffee
+              </Link>
             </div>
           </div>
 
