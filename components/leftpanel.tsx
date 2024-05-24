@@ -102,7 +102,7 @@ export default function LeftPanel() {
 
                 <div className="flex justify-center">
                     <Button
-                        className="mt-4 mb-4 bg-emerald-400 text-black rounded-full w-1/2 py-3"
+                        className="mt-4 mb-4 text-gray-700 bg-emerald-400 hover:text-black rounded-full w-1/2 py-3 transition ease-in-out duration-300 hover:scale-105 hover:bg-emerald-400"
                         size={'sm'}
                         onClick={handleOnClick}
                     >

@@ -14,7 +14,6 @@ const DashboardLayout = ({
             <div className="flex flex-1 overflow-hidden">
                 <LeftPanel />
                 {children}
-                {/* <MidPanel /> */}
                 <RightPanel />
             </div>
             <BottomPanel />

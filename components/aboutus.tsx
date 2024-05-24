@@ -1,12 +1,10 @@
-import { Navbar } from "./navbar"
-import { Footer } from "./footer"
 import Image from 'next/image'
 import Link from "next/link"
 
 export function Aboutus() {
   return (
     <main className="w-full">
-      <section className="w-full  lg:h-screen bg-gray-950 py-24 md:py-32 lg:py-40">
+      <section className="w-full h-screen flex items-center bg-gray-950 py-24 md:py-32 lg:py-40">
         <div className="container flex flex-col items-center gap-8 px-4 md:px-6">
           <div className="grid max-w-2xl grid-cols-1 gap-6 md:grid-cols-[1fr_auto]">
             <div className="space-y-4 text-center md:text-left">
@@ -23,10 +21,10 @@ export function Aboutus() {
             </div>
             <Image
               alt="Co-founders"
-              className="hidden lg:block mx-auto rounded-lg object-cover aspect-square w-full h-full md:mx-0"
-              height={500}
+              className="hidden lg:block mx-auto rounded-lg object-cover aspect-square w-full h-full md:block"
+              height={50}
               src="/resume.svg"
-              width={500}
+              width={50}
             />
           </div>
         </div>

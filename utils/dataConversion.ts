@@ -65,6 +65,7 @@ interface ConvertedApplicantData {
 }
 
 export function convertToApplicantData(data: any): ConvertedApplicantData {
+    console.log(data);
     const convertedData: ConvertedApplicantData = {
         selectedTemplate: data.selectedTemplate,
         headings: data.headings,
@@ -88,8 +89,8 @@ export function convertToApplicantData(data: any): ConvertedApplicantData {
         })),
         work: data.work.map((job: any) => ({
             company: job.companyName,
-            position: job.position,
             location: job.jobLocation,
+            position: job.position,
             startDate: job.startDate,
             endDate: job.endDate,
             highlights: job.description
