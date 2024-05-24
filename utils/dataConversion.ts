@@ -38,7 +38,7 @@ interface ConvertedAward {
     summary?: string;
 }
 
-interface ConvertedApplicantData {
+export interface ConvertedApplicantData {
     selectedTemplate: Number;
     headings: {
         work: string;
