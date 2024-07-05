@@ -22,7 +22,8 @@ import Link from "next/link";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { useEffect, useRef } from "react";
+import { deleteFile } from "@/actions/upload";
+import { ProfileData } from "@/app/interfaces";
 
 export function Landing(props: any) {
 
@@ -36,12 +37,24 @@ export function Landing(props: any) {
   const savedProjectData = Cookies.get('projectData');
   const savedAwardsData = Cookies.get('awardsData');
 
+  const profileData: { profile: ProfileData } = savedProfileData ? JSON.parse(savedProfileData) : { profile: { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "", fileName: "" } };
+
   const continueSessionClick = () => {
     router.push('/profile');
   }
 
   const newResumeClick = async () => {
     try {
+
+      Cookies.remove('profileData');
+      Cookies.remove('educationData');
+      Cookies.remove('workData');
+      Cookies.remove('skillsData');
+      Cookies.remove('projectData');
+      Cookies.remove('awardsData');
+      Cookies.remove('templateData');
+
+      profileData.profile.profilePicture ? await deleteFile(profileData.profile.profilePicture) : null;
 
       const response = await axios.delete('/api/resume')
       console.log(response);
@@ -50,13 +63,6 @@ export function Landing(props: any) {
       console.error(error);
 
     } finally {
-      Cookies.remove('profileData');
-      Cookies.remove('educationData');
-      Cookies.remove('workData');
-      Cookies.remove('skillsData');
-      Cookies.remove('projectData');
-      Cookies.remove('awardsData');
-      Cookies.remove('templateData');
       router.push('/resumeTemplates')
     }
   }
