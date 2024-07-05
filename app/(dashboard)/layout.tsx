@@ -4,23 +4,26 @@ import BottomPanel from "@/components/bottompanel";
 import LeftPanel from "@/components/leftpanel";
 import RightPanel from "@/components/rightpanel";
 import TopPanel from "@/components/toppanel";
+import ResumeContext from "@/context/ResumeContext";
 import { useState } from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
 
-    const [resumeUrl, setResumeUrl] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [resumeURL, setResumeURL] = useState<string | null>(null);
+    const [isResumeLoading, setIsResumeLoading] = useState<boolean>(false);
 
     return (
-        <main className="flex flex-col h-screen">
-            <TopPanel />
-            <div className="flex flex-1 overflow-hidden">
-                <LeftPanel setResumeUrl={setResumeUrl} setIsLoading={setIsLoading} />
-                {children}
-                <RightPanel resumeUrl={resumeUrl} isLoading={isLoading} />
-            </div>
-            <BottomPanel />
-        </main>
+        <ResumeContext.Provider value={{ resumeURL, setResumeURL, isResumeLoading, setIsResumeLoading }}>
+            <main className="flex flex-col h-screen">
+                <TopPanel />
+                <div className="flex flex-1 overflow-hidden">
+                    <LeftPanel />
+                    {children}
+                    <RightPanel />
+                </div>
+                <BottomPanel />
+            </main>
+        </ResumeContext.Provider>
     )
 }
 

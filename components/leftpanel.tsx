@@ -6,16 +6,14 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import './List.css';
 import { AwardsItem, EducationItem, ProfileData, ProjectItem, SkillsItem, WorkItem } from "@/app/interfaces";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ConvertedApplicantData, convertToApplicantData } from "@/utils/dataConversion";
 import { useSession } from "next-auth/react";
+import ResumeContext from "@/context/ResumeContext";
 
-interface LeftPanelProps {
-    setResumeUrl: (url: string) => void;
-    setIsLoading: (isLoading: boolean) => void;
-}
+export default function LeftPanel() {
 
-export default function LeftPanel({ setResumeUrl, setIsLoading }: LeftPanelProps) {
+    const { setResumeURL, setIsResumeLoading } = useContext(ResumeContext)
 
     const savedProfileData = Cookies.get('profileData');
     const savedEducationData = Cookies.get('educationData');
@@ -67,7 +65,7 @@ export default function LeftPanel({ setResumeUrl, setIsLoading }: LeftPanelProps
 
     const handleSubmit = async (applicantData: ConvertedApplicantData, imageURL: string) => {
 
-        setIsLoading(true);
+        setIsResumeLoading(true);
 
         try {
             const formData = new FormData();
@@ -91,12 +89,12 @@ export default function LeftPanel({ setResumeUrl, setIsLoading }: LeftPanelProps
 
             const blob = await response.blob();
             const url = URL.createObjectURL(blob);
-            setResumeUrl(url);
+            setResumeURL(url);
 
         } catch (error) {
             console.error('Error:', error);
         } finally {
-            setIsLoading(false);
+            setIsResumeLoading(false);
         }
     };
 
@@ -167,7 +165,7 @@ export default function LeftPanel({ setResumeUrl, setIsLoading }: LeftPanelProps
 
                 <div className="flex justify-center">
                     <Button
-                        className="mt-4 mb-4 bg-emerald-400 text-black rounded-full w-1/2 py-3"
+                        className="mt-4 mb-4 bg-emerald-400 text-black rounded-full w-1/2 py-3 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-opacity-50 active:bg-emerald-700 shadow-md transition duration-150 ease-in-out"
                         size={'sm'}
                         onClick={handleOnClick}
                     >

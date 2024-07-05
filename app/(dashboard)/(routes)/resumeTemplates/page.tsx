@@ -24,6 +24,7 @@ const Page = () => {
         { id: 1, src: '/home.jpg', buttonText: 'Template 1' },
         { id: 2, src: '/home1.jpg', buttonText: 'Template 2' },
         { id: 3, src: '/home2.jpg', buttonText: 'Template 3' },
+        { id: 4, src: '/home2.jpg', buttonText: 'Template 4' },
     ];
 
     const handleImageClick = (imageSrc: any) => {
