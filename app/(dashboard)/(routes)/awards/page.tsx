@@ -7,11 +7,14 @@ import { Input } from "@/components/ui/input";
 import { AwardsItem } from '@/app/interfaces'
 import Cookies from 'js-cookie';
 import { useSession } from 'next-auth/react';
+import { convertToApplicantData } from '@/utils/dataConversion';
 
 const Page = () => {
 
     const { data: session } = useSession();
-
+    // const response = convertToApplicantData(session?.user?.resumeDetails);
+    // console.log(session?.user?.resumeDetails)
+    // console.log(response);
     // const savedAwardsData = session?.user.resumeDetails.awards;
     // const initialAwardsData: { sectionHeading: string, awardsItems: AwardsItem[] } = savedAwardsData ? { sectionHeading: session.user.resumeDetails.headings.awards, awardsItems: session.user.resumeDetails.awards } : { sectionHeading: '', awardsItems: [] };
 

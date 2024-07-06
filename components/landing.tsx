@@ -2,7 +2,7 @@ import { Navbar } from "./navbar"
 import { Footer } from "./footer"
 import Image from 'next/image'
 import { useSession } from "next-auth/react"
-import { Check, Coffee, StepForward } from 'lucide-react';
+import { Check, Coffee, CoffeeIcon, StepForward } from 'lucide-react';
 import { Pen } from 'lucide-react';
 import { Button } from "./ui/button";
 import { FcGoogle } from "react-icons/fc";
@@ -60,13 +60,11 @@ export function Landing(props: any) {
       console.log(response);
 
     } catch (error) {
-      console.error(error);
 
     } finally {
       router.push('/resumeTemplates')
     }
   }
-
   return (
 
     <div className="flex  flex-col min-h-[100dvh] bg-gray-950 text-gray-50">
@@ -88,7 +86,6 @@ export function Landing(props: any) {
                     Resumake is the easiest way to build a stunning resume using your personal data. Sign in with Google
                     and let us handle the rest.
                   </p>
-
                   {!session ?
                     <Button
                       className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-slate-200 dark:hover:border-slate-500 hover:text-white dark:hover:text-slate-300 hover:shadow transition duration-150"
@@ -145,7 +142,6 @@ export function Landing(props: any) {
 
                     </>
                   }
-
                 </div>
               </div>
               <div className="lg:block flex flex-col justify-center space-y-4 px-5 py-5">
@@ -264,6 +260,73 @@ export function Landing(props: any) {
                 src="/3293513.jpg"
                 width="700"
               />
+            </div>
+          </div>
+
+        </section>
+        <section className="w-full bg-gray-950 py-12 md:py-16 lg:py-20">
+          <div className="container flex flex-col items-center gap-6 px-4 md:px-6">
+            <div className="space-y-4 text-center">
+              <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm font-medium text-emerald-900 dark:bg-emerald-900 dark:text-emerald-100">
+                Contribute
+              </div>
+              <h2 className="text-3xl font-extrabold tracking-tight text-gray-50 sm:text-4xl md:text-5xl">
+                Join Us on GitHub
+              </h2>
+              <p className="text-gray-400 md:text-xl">
+                Resumake is an open-source project, and we welcome contributions from the community. If you&apos;d like to get
+                involved, check out our GitHub repository.
+              </p>
+            </div>
+            <div className="flex flex-col items-center gap-4 sm:flex-row">
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md bg-emerald-600 px-6 text-sm font-medium text-gray-50 shadow-sm transition-colors hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:bg-emerald-900 dark:hover:bg-emerald-800 dark:focus:ring-emerald-700"
+                href="https://github.com/Ad-30/resumemaker" target="blank"
+              >
+                <GitHubLogoIcon className="mr-2 h-5 w-5" />
+                GitHub Repository
+              </Link>
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md border border-emerald-600 bg-transparent px-6 text-sm font-medium text-emerald-600 transition-colors hover:bg-emerald-600 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:border-emerald-900 dark:text-emerald-900 dark:hover:bg-emerald-900 dark:hover:text-gray-50 dark:focus:ring-emerald-700"
+                href="https://buymeacoffee.com/ad30" target="blank"
+              >
+                <CoffeeIcon className="mr-2 h-5 w-5" />
+                Buy Us a Coffee
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="w-full bg-gray-950 py-12 md:py-16 lg:py-20">
+
+          <div className="container flex flex-col items-center gap-6 px-4 md:px-6">
+            <div className="space-y-4 text-center">
+              <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm font-medium text-emerald-900 dark:bg-emerald-900 dark:text-emerald-100">
+                Contribute
+              </div>
+              <h2 className="text-3xl font-extrabold tracking-tight text-gray-50 sm:text-4xl md:text-5xl">
+                Join Us on GitHub
+              </h2>
+              <p className="text-gray-400 md:text-xl">
+                Resumake is an open-source project, and we welcome contributions from the community. If you&apos;d like to get
+                involved, check out our GitHub repository.
+              </p>
+            </div>
+            <div className="flex flex-col items-center gap-4 sm:flex-row">
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md bg-emerald-600 px-6 text-sm font-medium text-gray-50 shadow-sm transition-colors hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:bg-emerald-900 dark:hover:bg-emerald-800 dark:focus:ring-emerald-700"
+                href="https://github.com/Ad-30/resumemaker" target="blank"
+              >
+                <GitHubLogoIcon className="mr-2 h-5 w-5" />
+                GitHub Repository
+              </Link>
+              <Link
+                className="inline-flex h-10 items-center justify-center rounded-md border border-emerald-600 bg-transparent px-6 text-sm font-medium text-emerald-600 transition-colors hover:bg-emerald-600 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:border-emerald-900 dark:text-emerald-900 dark:hover:bg-emerald-900 dark:hover:text-gray-50 dark:focus:ring-emerald-700"
+                href="https://buymeacoffee.com/ad30" target="blank"
+              >
+                <Coffee className="mr-2 h-5 w-5" />
+                Buy Us a Coffee
+              </Link>
             </div>
           </div>
 
