@@ -73,8 +73,7 @@ export function Landing(props: any) {
 
       <main className="flex-1">
 
-        <section className="w-full py-12 md:py-24 lg:py-28 lg:pb-128 relative">
-
+        <section className="flex items-center justify-center w-full min-h-screen py-12 md:py-24 lg:py-28 relative">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="flex flex-col justify-center space-y-4">
@@ -83,8 +82,7 @@ export function Landing(props: any) {
                     Create a Professional Resume in Minutes
                   </h1>
                   <p className="max-w-[600px] text-gray-400 md:text-xl dark:text-gray-400">
-                    Resumake is the easiest way to build a stunning resume using your personal data. Sign in with Google
-                    and let us handle the rest.
+                    Resumake makes it incredibly simple to create a stunning, professional resume using your personal information effortlessly.
                   </p>
                   {!session ?
                     <Button
@@ -96,7 +94,6 @@ export function Landing(props: any) {
                     </Button>
                     :
                     <>
-
                       {(Boolean(session?.user.resumeDetails) || Boolean(savedProfileData) || Boolean(savedEducationData) || Boolean(savedWorkData) || Boolean(savedSkillsData) || Boolean(savedProjectData) || Boolean(savedAwardsData)) &&
                         <Button
                           className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-emerald-400 dark:hover:border-slate-500 hover:text-emerald-400 dark:hover:text-slate-300 hover:shadow transition duration-150"
@@ -139,7 +136,6 @@ export function Landing(props: any) {
                             <Pen className="text-emerald-400" /><span>Create new Resume</span>
                           </Button>
                         )}
-
                     </>
                   }
                 </div>
@@ -150,7 +146,7 @@ export function Landing(props: any) {
                     <Image
                       alt="Hero"
                       className="aspect-video overflow-hidden rounded-xl object-contain h-5/6 w-2/3"
-                      src="/home2.jpg"
+                      src="/Resume1.jpeg"
                       style={{ zIndex: 0 }}
                       width={325}
                       height={500}
@@ -160,7 +156,7 @@ export function Landing(props: any) {
                     <Image
                       alt="Hero"
                       className="aspect-video overflow-hidden rounded-xl object-contain h-5/6 w-2/3 mt-20 mr-20"
-                      src="/home.jpg"
+                      src="/Resume2.jpeg"
                       style={{ zIndex: 1 }}
                       width={325}
                       height={500}
@@ -171,6 +167,7 @@ export function Landing(props: any) {
             </div>
           </div>
         </section>
+
 
 
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-900">
@@ -257,7 +254,7 @@ export function Landing(props: any) {
                 alt="Image"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
                 height="1200"
-                src="/3293513.jpg"
+                src="/home4.jpg"
                 width="700"
               />
             </div>
