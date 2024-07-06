@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ProjectForm from '@/components/projectform';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -7,14 +7,13 @@ import { Input } from "@/components/ui/input";
 import { ProjectItem } from '@/app/interfaces';
 import Cookies from 'js-cookie';
 import { useSession } from 'next-auth/react';
+import ResumeContext from '@/context/ResumeContext';
 
 
 const Page = () => {
 
     const { data: session } = useSession();
-
-    // const savedProjectData = session?.user.resumeDetails.projects;
-    // const initialProjectData: { sectionHeading: string, projectItems: ProjectItem[] } = savedProjectData ? { sectionHeading: session.user.resumeDetails.headings.projects, projectItems: session.user.resumeDetails.projects } : { sectionHeading: '', projectItems: [] };
+    const { projectData, setProjectData } = useContext(ResumeContext);
 
     const cookiesProjectsData = Cookies.get('projectData');
     const parsedProjectsData = cookiesProjectsData ? JSON.parse(cookiesProjectsData) : null;
@@ -28,7 +27,7 @@ const Page = () => {
             ? { sectionHeading: session?.user.resumeDetails.headings.projects, projectItems: savedProjectsData }
             : defaultProjectsData;
 
-    const [projectData, setProjectData] = useState<{ sectionHeading: string, projectItems: ProjectItem[] }>(initialProjectData);
+    // const [projectData, setProjectData] = useState<{ sectionHeading: string, projectItems: ProjectItem[] }>(initialProjectData);
 
     const updateProjectItem = (id: number, newItem: ProjectItem) => {
         setProjectData(prevState => ({

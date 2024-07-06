@@ -1,7 +1,7 @@
 'use client'
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 import axios from "axios";
 import './List.css';
@@ -13,30 +13,13 @@ import ResumeContext from "@/context/ResumeContext";
 
 export default function LeftPanel() {
 
-    const { setResumeURL, setIsResumeLoading } = useContext(ResumeContext)
-
-    const savedProfileData = Cookies.get('profileData');
-    const savedEducationData = Cookies.get('educationData');
-    const savedWorkData = Cookies.get('workData');
-    const savedSkillsData = Cookies.get('skillsData');
-    const savedProjectData = Cookies.get('projectData');
-    const savedAwardsData = Cookies.get('awardsData');
-    const savedTemplateData = Cookies.get('templateData');
-
-    const profileData: { profile: ProfileData } = savedProfileData ? JSON.parse(savedProfileData) : { profile: { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "", fileName: "" } };
-    const educationData: { sectionHeading: string, educationItems: EducationItem[] } = savedEducationData ? JSON.parse(savedEducationData) : { sectionHeading: '', educationItems: [] };
-    const workData: { sectionHeading: string, workItems: WorkItem[] } = savedWorkData ? JSON.parse(savedWorkData) : { sectionHeading: '', workItems: [] };
-    const skillsData: { sectionHeading: string, skillsItems: SkillsItem[] } = savedSkillsData ? JSON.parse(savedSkillsData) : { sectionHeading: '', skillsItems: [] };
-    const projectData: { sectionHeading: string, projectItems: ProjectItem[] } = savedProjectData ? JSON.parse(savedProjectData) : { sectionHeading: '', projectItems: [] };
-    const awardsData: { sectionHeading: string, awardsItems: AwardsItem[] } = savedAwardsData ? JSON.parse(savedAwardsData) : { sectionHeading: '', awardsItems: [] };
-    const templateData: { selectedTemplate: Number } = savedTemplateData ? JSON.parse(savedTemplateData) : { selectedTemplate: 1 }
+    const { setResumeURL, setIsResumeLoading, profileData, selectedTemplate, educationData, workData, skillsData, projectData, awardsData } = useContext(ResumeContext);
 
     const { data: session } = useSession();
-    const router = useRouter();
 
     const resumeDetails = {
         creator: session?.user.id,
-        selectedTemplate: templateData.selectedTemplate,
+        selectedTemplate: selectedTemplate,
         headings: {
             education: educationData.sectionHeading,
             work: workData.sectionHeading,
@@ -59,9 +42,9 @@ export default function LeftPanel() {
         console.log(skillsData);
         console.log(projectData);
         console.log(awardsData);
-        console.log(templateData);
+        console.log(selectedTemplate);
 
-    }, [profileData, educationData, workData, skillsData, projectData, awardsData])
+    }, [profileData, educationData, workData, skillsData, projectData, awardsData, selectedTemplate])
 
     const handleSubmit = async (applicantData: ConvertedApplicantData, imageURL: string) => {
 
@@ -72,12 +55,12 @@ export default function LeftPanel() {
             formData.append('applicantData', JSON.stringify(applicantData));
             formData.append('imageURL', imageURL);
 
-            const response = await fetch('https://ad30.pythonanywhere.com/latexResume', {
+            const response = await fetch('https://latexapi.pythonanywhere.com/latexResume', {
                 method: 'POST',
                 body: formData,
-                // headers: {
-                //     'X-Access-Key': process.env.X_Access_Key || ''
-                // },
+                headers: {
+                    'X-Access-Key': process.env.NEXT_PUBLIC_X_ACCESS_KEY || ''
+                },
             });
 
             console.log(response);
@@ -102,7 +85,7 @@ export default function LeftPanel() {
 
         try {
             const response = await axios.post('/api/resume', {
-                selectedTemplate: templateData.selectedTemplate,
+                selectedTemplate: selectedTemplate,
                 basics: profileData,
                 education: educationData,
                 work: workData,

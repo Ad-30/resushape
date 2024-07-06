@@ -1,24 +1,16 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 import Cookies from 'js-cookie';
 import { useSession } from 'next-auth/react';
+import ResumeContext from '@/context/ResumeContext';
 
 const Page = () => {
 
-    const { data: session } = useSession();
-
-    const cookiesTemplateData = Cookies.get('templateData');
-    const parsedTemplateData = cookiesTemplateData ? JSON.parse(cookiesTemplateData) : null;
-
-    const savedTemplateData = { selectedTemplate: session?.user?.resumeDetails?.selectedTemplate }
-    const defaultTemplateData = { selectedTemplate: 1 }
-
-    const initialTemplate: Number = parsedTemplateData?.selectedTemplate ? parsedTemplateData.selectedTemplate : savedTemplateData.selectedTemplate ? savedTemplateData.selectedTemplate : defaultTemplateData.selectedTemplate;
+    const { selectedTemplate, setSelectedTemplate } = useContext(ResumeContext);
 
     const [selectedImage, setSelectedImage] = useState(null);
-    const [selectedTemplate, setSelectedTemplate] = useState<Number | undefined>(initialTemplate);
 
     const templates = [
         { id: 1, src: '/home.jpg', buttonText: 'Template 1' },
@@ -39,11 +31,9 @@ const Page = () => {
         setSelectedTemplate(template);
     }
 
-    console.log(selectedTemplate);
     const templateData = { selectedTemplate: selectedTemplate }
     Cookies.set('templateData', JSON.stringify(templateData))
 
-    console.log(cookiesTemplateData);
 
     return (
         <>

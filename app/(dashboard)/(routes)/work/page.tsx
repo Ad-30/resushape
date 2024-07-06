@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import WorkForm from '@/components/workform';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -7,14 +7,13 @@ import { Input } from "@/components/ui/input";
 import { WorkItem } from '@/app/interfaces';
 import Cookies from 'js-cookie';
 import { useSession } from 'next-auth/react';
+import ResumeContext from '@/context/ResumeContext';
 
 
 const Page = () => {
 
     const { data: session } = useSession();
-
-    // const savedWorkData = session?.user.resumeDetails.work;
-    // const initialWorkData: { sectionHeading: string, workItems: WorkItem[] } = savedWorkData ? { sectionHeading: session.user.resumeDetails.headings.work, workItems: session.user.resumeDetails.work } : { sectionHeading: '', workItems: [] };
+    const { workData, setWorkData } = useContext(ResumeContext);
 
     const cookiesWorkData = Cookies.get('workData');
     const parsedWorkData = cookiesWorkData ? JSON.parse(cookiesWorkData) : null;
@@ -28,7 +27,7 @@ const Page = () => {
             ? { sectionHeading: session?.user.resumeDetails.headings.work, workItems: savedWorkData }
             : defaultWorkData;
 
-    const [workData, setWorkData] = useState<{ sectionHeading: string, workItems: WorkItem[] }>(initialWorkData);
+    // const [workData, setWorkData] = useState<{ sectionHeading: string, workItems: WorkItem[] }>(initialWorkData);
 
     const updateWorkItem = (id: number, newItem: WorkItem) => {
         setWorkData(prevState => ({

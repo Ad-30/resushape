@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ProfileSchema } from '@/schemas';
@@ -13,29 +13,12 @@ import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { Label } from '@/components/ui/label';
+import ResumeContext from '@/context/ResumeContext';
 
 const Page = () => {
 
-    const { data: session } = useSession();
+    const { profileData, setProfileData } = useContext(ResumeContext);
 
-    const cookiesProfileData = Cookies.get('profileData');
-    const parsedProfileData = cookiesProfileData ? JSON.parse(cookiesProfileData) : null;
-
-    const savedProfileData = session?.user?.resumeDetails?.basics;
-    const defaultProfileData = { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "", fileName: "" };
-
-    const initialProfileData: { profile: ProfileData } = parsedProfileData?.profile && Object.values(parsedProfileData.profile).some(value => value !== "")
-        ? parsedProfileData
-        : savedProfileData
-            ? { profile: savedProfileData }
-            : { profile: defaultProfileData };
-
-    const [profileData, setProfileData] = useState<{ profile: ProfileData }>(initialProfileData);
-
-    // const savedProfileData = session?.user.resumeDetails.basics;
-    // const initialProfileData: { profile: ProfileData } = savedProfileData ? { profile: savedProfileData } : { profile: { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "", fileName: "" } };
-
-    // const [profileData, setProfileData] = useState<{ profile: ProfileData }>(initialProfileData);
     const [file, setFile] = useState<File | undefined>();
     const [fileUrl, setFileUrl] = useState<string | undefined>();
     const [fileUploaded, setFileUploaded] = useState<boolean>(false);
@@ -101,8 +84,6 @@ const Page = () => {
             setFileUrl(undefined);
         }
     }
-
-    console.log(profileData);
 
     const handleFileSubmit = async () => {
 

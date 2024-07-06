@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import EducationForm from '@/components/educationform';;
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -7,13 +7,12 @@ import { Input } from "@/components/ui/input";
 import { EducationItem } from '@/app/interfaces'
 import Cookies from 'js-cookie';
 import { useSession } from 'next-auth/react';
+import ResumeContext from '@/context/ResumeContext';
 
 const Page = () => {
 
     const { data: session } = useSession();
-
-    // const savedEducationData = session?.user.resumeDetails.education;
-    // const initialEducationData: { sectionHeading: string, educationItems: EducationItem[] } = savedEducationData ? { sectionHeading: session.user.resumeDetails.headings.education, educationItems: savedEducationData } : { sectionHeading: '', educationItems: [] };
+    const { educationData, setEducationData } = useContext(ResumeContext);
 
     const cookiesEducationData = Cookies.get('educationData');
     const parsedEducationData = cookiesEducationData ? JSON.parse(cookiesEducationData) : null;
@@ -27,7 +26,7 @@ const Page = () => {
             ? { sectionHeading: session.user.resumeDetails.headings.education, educationItems: savedEducationData }
             : defaultEducationData;
 
-    const [educationData, setEducationData] = useState<{ sectionHeading: string, educationItems: EducationItem[] }>(initialEducationData);
+    // const [educationData, setEducationData] = useState<{ sectionHeading: string, educationItems: EducationItem[] }>(initialEducationData);
 
     const updateEducationItem = (id: number, newItem: EducationItem) => {
         setEducationData(prevState => ({

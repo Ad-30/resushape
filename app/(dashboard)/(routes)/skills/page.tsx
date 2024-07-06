@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import SkillsForm from '@/components/skillsform';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -7,15 +7,14 @@ import { Input } from "@/components/ui/input";
 import { SkillsItem } from '@/app/interfaces';
 import Cookies from 'js-cookie';
 import { useSession } from 'next-auth/react';
+import ResumeContext from '@/context/ResumeContext';
 
 
 
 const Page = () => {
 
     const { data: session } = useSession();
-
-    // const savedSkillsData = session?.user.resumeDetails.skills;
-    // const initialSkillsData: { sectionHeading: string, skillsItems: SkillsItem[] } = savedSkillsData ? { sectionHeading: session.user.resumeDetails.headings.skills, skillsItems: session.user.resumeDetails.skills } : { sectionHeading: '', skillsItems: [] };
+    const { skillsData, setSkillsData } = useContext(ResumeContext);
 
     const cookiesSkillsData = Cookies.get('skillsData');
     const parsedSkillsData = cookiesSkillsData ? JSON.parse(cookiesSkillsData) : null;
@@ -29,7 +28,7 @@ const Page = () => {
             ? { sectionHeading: session?.user.resumeDetails.headings.skills, skillsItems: savedSkillsData }
             : defaultSkillsData;
 
-    const [skillsData, setSkillsData] = useState<{ sectionHeading: string, skillsItems: SkillsItem[] }>(initialSkillsData);
+    // const [skillsData, setSkillsData] = useState<{ sectionHeading: string, skillsItems: SkillsItem[] }>(initialSkillsData);
 
     const updateSkillsItem = (id: number, newItem: SkillsItem) => {
         setSkillsData(prevState => ({
