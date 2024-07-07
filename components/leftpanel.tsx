@@ -46,6 +46,8 @@ export default function LeftPanel() {
 
     }, [profileData, educationData, workData, skillsData, projectData, awardsData, selectedTemplate])
 
+    const defaultImageURL = "https://resushape.s3.eu-north-1.amazonaws.com/user.png"
+
     const handleSubmit = async (applicantData: ConvertedApplicantData, imageURL: string) => {
 
         setIsResumeLoading(true);
@@ -53,7 +55,7 @@ export default function LeftPanel() {
         try {
             const formData = new FormData();
             formData.append('applicantData', JSON.stringify(applicantData));
-            formData.append('imageURL', imageURL);
+            formData.append('imageURL', imageURL || defaultImageURL);
 
             const response = await fetch('https://latexapi.pythonanywhere.com/latexResume', {
                 method: 'POST',

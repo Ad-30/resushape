@@ -18,6 +18,12 @@ export default function BottomPanel() {
     const current = usePathname();
     const currentIndex = sections.indexOf(current);
     const [progress, setProgress] = useState(currentIndex * 100 / (sections.length - 1));
+
+    const { setResumeURL, setIsResumeLoading, profileData, selectedTemplate, educationData, workData, skillsData, projectData, awardsData } = useContext(ResumeContext);
+
+    // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [windowWidth, setWindowWidth] = useState(0);
+
     useEffect(() => {
         const updateProgress = () => {
             const newCurrentIndex = sections.indexOf(current);
@@ -26,10 +32,6 @@ export default function BottomPanel() {
 
         updateProgress();
     }, [current]);
-    // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const { setResumeURL, setIsResumeLoading, profileData, selectedTemplate, educationData, workData, skillsData, projectData, awardsData } = useContext(ResumeContext);
-
-    const [windowWidth, setWindowWidth] = useState(0);
 
     useEffect(() => {
         const updateWindowWidth = () => {
@@ -77,6 +79,7 @@ export default function BottomPanel() {
         awards: awardsData.awardsItems
     }
 
+    const defaultImageURL = "https://resushape.s3.eu-north-1.amazonaws.com/user.png"
 
     const handleSubmit = async (applicantData: ConvertedApplicantData, imageURL: string) => {
 
@@ -85,7 +88,7 @@ export default function BottomPanel() {
         try {
             const formData = new FormData();
             formData.append('applicantData', JSON.stringify(applicantData));
-            formData.append('imageURL', imageURL);
+            formData.append('imageURL', imageURL || defaultImageURL);
 
             const response = await fetch('https://latexapi.pythonanywhere.com/latexResume', {
                 method: 'POST',
