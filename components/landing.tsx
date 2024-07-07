@@ -1,7 +1,7 @@
 import { Navbar } from "./navbar"
 import { Footer } from "./footer"
 import Image from 'next/image'
-import { useSession } from "next-auth/react"
+import { signIn, signOut, useSession } from "next-auth/react"
 import { Check, Coffee, CoffeeIcon, StepForward } from 'lucide-react';
 import { Pen } from 'lucide-react';
 import { Button } from "./ui/button";
@@ -24,7 +24,9 @@ import Cookies from 'js-cookie';
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { deleteFile } from "@/actions/upload";
 import { ProfileData } from "@/app/interfaces";
-
+const signInWithGoogle = async () => {
+  await signIn("google")
+}
 export function Landing(props: any) {
 
   const { data: session } = useSession();
@@ -69,7 +71,7 @@ export function Landing(props: any) {
 
     <div className="flex  flex-col min-h-[100dvh] bg-gray-950 text-gray-50">
 
-      <Navbar signInWithGoogle={props.signInWithGoogle} />
+      <Navbar signInWithGoogle={signInWithGoogle} />
 
       <main className="flex-1">
 
@@ -87,7 +89,7 @@ export function Landing(props: any) {
                   {!session ?
                     <Button
                       className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-slate-200 dark:hover:border-slate-500 hover:text-white dark:hover:text-slate-300 hover:shadow transition duration-150"
-                      onClick={props.signInWithGoogle}
+                      onClick={signInWithGoogle}
                     >
                       <FcGoogle className="h-7 w-7" />
                       <span>Sign up with Google</span>

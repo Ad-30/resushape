@@ -11,15 +11,7 @@ import { WorkFormProps } from '@/app/interfaces';
 
 const WorkForm: React.FC<WorkFormProps> = (props) => {
     const [workCount, setWorkCount] = useState(props.initialValues?.description?.length || 1);
-    const handleAddTool = () => {
-        setWorkCount((prevCount: number) => prevCount + 1);
-    };
 
-    const handleRemoveTool = () => {
-        if (workCount > 1) {
-            setWorkCount((prevCount: number) => prevCount - 1);
-        }
-    };
     const form = useForm<z.infer<typeof WorkSchema>>({
         resolver: zodResolver(WorkSchema),
         defaultValues: props.initialValues || {
@@ -42,8 +34,24 @@ const WorkForm: React.FC<WorkFormProps> = (props) => {
 
     }, [form]);
 
+    const handleAddTool = () => {
+        const currentDescriptions = form.getValues('description') || [];
+        setWorkCount((prevCount: number) => prevCount + 1);
+        form.setValue('description', [...currentDescriptions, '']);
+    };
+
+    const handleRemoveTool = () => {
+        if (workCount > 1) {
+            const currentDescriptions = form.getValues('description') || [];
+            if (currentDescriptions.length > workCount - 1) {
+                const updatedDescriptions = currentDescriptions.slice(0, -1);
+                form.setValue('description', updatedDescriptions);
+            }
+            setWorkCount(prevCount => prevCount - 1);
+        }
+    };
     const onSubmit = async (values: z.infer<typeof WorkSchema>) => {
-        console.log(values);
+        // console.log(values);
     }
 
     return (

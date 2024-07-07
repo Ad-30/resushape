@@ -9,7 +9,6 @@ import { ConvertedApplicantData, convertToApplicantData } from "@/utils/dataConv
 import { AwardsItem, EducationItem, ProfileData, ProjectItem, SkillsItem, WorkItem } from "@/app/interfaces";
 import axios from "axios";
 import ResumeContext from "@/context/ResumeContext";
-import Cookies from "js-cookie";
 
 const sections = ["/resumeTemplates", "/profile", "/education", "/work", "/skills", "/projects", "/awards"];
 
@@ -19,6 +18,14 @@ export default function BottomPanel() {
     const current = usePathname();
     const currentIndex = sections.indexOf(current);
     const [progress, setProgress] = useState(currentIndex * 100 / (sections.length - 1));
+    useEffect(() => {
+        const updateProgress = () => {
+            const newCurrentIndex = sections.indexOf(current);
+            setProgress(newCurrentIndex * 100 / (sections.length - 1));
+        };
+
+        updateProgress();
+    }, [current]);
     // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const { setResumeURL, setIsResumeLoading, profileData, selectedTemplate, educationData, workData, skillsData, projectData, awardsData } = useContext(ResumeContext);
 
@@ -88,7 +95,7 @@ export default function BottomPanel() {
                 },
             });
 
-            console.log(response);
+            // console.log(response);
 
 
             if (!response.ok) {

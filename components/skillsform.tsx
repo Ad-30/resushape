@@ -11,15 +11,7 @@ import { SkillsFormProps } from '@/app/interfaces';
 
 const SkillsForm: React.FC<SkillsFormProps> = (props) => {
     const [skillsCount, setSkillsCount] = useState(props.initialValues?.skillDetail?.length || 1);
-    const handleAddTool = () => {
-        setSkillsCount(prevCount => prevCount + 1);
-    };
 
-    const handleRemoveTool = () => {
-        if (skillsCount > 1) {
-            setSkillsCount(prevCount => prevCount - 1);
-        }
-    };
     const form = useForm<z.infer<typeof SkillsSchema>>({
         resolver: zodResolver(SkillsSchema),
         defaultValues: props.initialValues || {
@@ -37,8 +29,27 @@ const SkillsForm: React.FC<SkillsFormProps> = (props) => {
 
     }, [form]);
 
+    const handleAddTool = () => {
+        const currentSkillDetails = form.getValues('skillDetail') || [];
+        setSkillsCount(prevCount => prevCount + 1);
+        form.setValue('skillDetail', [...currentSkillDetails, '']);
+    };
+
+    const handleRemoveTool = () => {
+        if (skillsCount > 1) {
+            const currentSkillDetails = form.getValues('skillDetail') || [];
+            if (skillsCount == currentSkillDetails.length) {
+                if (currentSkillDetails.length > 0) {
+                    currentSkillDetails.pop();
+                    form.setValue('skillDetail', currentSkillDetails);
+                }
+            }
+            setSkillsCount(prevCount => prevCount - 1);
+        }
+    };
+
     const onSubmit = async (values: z.infer<typeof SkillsSchema>) => {
-        console.log(values);
+        // console.log(values);
     }
     const methods = useForm();
 

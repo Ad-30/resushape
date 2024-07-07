@@ -12,15 +12,7 @@ import { ProjectFormProps } from '@/app/interfaces';
 const ProjectForm: React.FC<ProjectFormProps> = (props) => {
     const [projectCount, setProjectCount] = useState(props.initialValues?.toolsUsed?.length || 1);
 
-    const handleAddTool = () => {
-        setProjectCount(prevCount => prevCount + 1);
-    };
 
-    const handleRemoveTool = () => {
-        if (projectCount > 1) {
-            setProjectCount(prevCount => prevCount - 1);
-        }
-    };
 
     const form = useForm<z.infer<typeof ProjectSchema>>({
         resolver: zodResolver(ProjectSchema),
@@ -41,8 +33,24 @@ const ProjectForm: React.FC<ProjectFormProps> = (props) => {
         }
     }, [form, props]);
 
+    const handleAddTool = () => {
+        const currentToolsUsed = form.getValues('toolsUsed') || [];
+        setProjectCount(prevCount => prevCount + 1);
+        form.setValue('toolsUsed', [...currentToolsUsed, '']);
+    };
+
+    const handleRemoveTool = () => {
+        if (projectCount > 1) {
+            const currentToolsUsed = form.getValues('toolsUsed') || [];
+            if (projectCount == currentToolsUsed.length) {
+                form.setValue('toolsUsed', currentToolsUsed.slice(0, -1));
+            }
+            setProjectCount(prevCount => prevCount - 1);
+        }
+    };
+
     const onSubmit = async (values: z.infer<typeof ProjectSchema>) => {
-        console.log(values);
+        // console.log(values);
     }
 
     return (
