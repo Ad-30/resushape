@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import { AwardsItem, EducationItem, ProfileData, ProjectItem, SkillsItem, WorkItem } from "../interfaces";
 import Cookies from 'js-cookie';
 import { useSession } from "next-auth/react";
-
+import { LoadingPageComponent } from '@/components/loading-page-component';
 const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
     const { data: session } = useSession();
     const [isClient, setIsClient] = useState(false);
@@ -158,9 +158,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
 
     if (!isClient) {
         return (
-            <div className="flex justify-center items-center">
-                Loading...
-            </div>
+
+            <LoadingPageComponent />
+
         )
     }
 
