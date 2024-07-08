@@ -24,9 +24,12 @@ import Cookies from 'js-cookie';
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { deleteFile } from "@/actions/upload";
 import { ProfileData } from "@/app/interfaces";
+import { motion } from 'framer-motion';
+
 const signInWithGoogle = async () => {
   await signIn("google")
 }
+
 export function Landing(props: any) {
 
   const { data: session } = useSession();
@@ -148,7 +151,7 @@ export function Landing(props: any) {
                     <Image
                       alt="Hero"
                       className="aspect-video overflow-hidden rounded-xl object-contain h-5/6 w-2/3"
-                      src="/Resume1.jpeg"
+                      src="/templates/3.png"
                       style={{ zIndex: 0 }}
                       width={325}
                       height={500}
@@ -158,7 +161,7 @@ export function Landing(props: any) {
                     <Image
                       alt="Hero"
                       className="aspect-video overflow-hidden rounded-xl object-contain h-5/6 w-2/3 mt-20 mr-20"
-                      src="/Resume2.jpeg"
+                      src="/templates/5.png"
                       style={{ zIndex: 1 }}
                       width={325}
                       height={500}
@@ -168,6 +171,17 @@ export function Landing(props: any) {
               </div>
             </div>
           </div>
+
+          <div className='absolute bottom-10 md:bottom-5 lg:bottom-24 w-full flex justify-center items-center'>
+            <div className='w-6 h-10 xs:w-4 xs:h-8 rounded-3xl border-4 border-secondary flex justify-center items-start p-1'>
+              <motion.div
+                animate={{ y: [0, 24, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, repeatType: 'loop' }}
+                className='w-2 h-2 xs:w-1.5 xs:h-1.5 rounded-full bg-secondary mb-1'
+              />
+            </div>
+          </div>
+
         </section>
 
 
