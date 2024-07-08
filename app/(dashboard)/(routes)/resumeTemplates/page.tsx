@@ -13,12 +13,12 @@ const Page = () => {
     const [selectedImage, setSelectedImage] = useState(null);
 
     const templates = [
-        { id: 1, src: '/home1.jpg', buttonText: 'Template 1' },
-        { id: 2, src: '/home2.jpg', buttonText: 'Template 2' },
-        { id: 3, src: '/home.jpg', buttonText: 'Template 3' },
-        { id: 4, src: '/template4.png', buttonText: 'Template 4' },
-        { id: 5, src: '/template4.png', buttonText: 'Template 5' },
-        { id: 6, src: '/template4.png', buttonText: 'Template 6' },
+        { id: 1, src: '/templates/1.png', buttonText: 'Template 1' },
+        { id: 2, src: '/templates/2.png', buttonText: 'Template 2' },
+        { id: 3, src: '/templates/3.png', buttonText: 'Template 3' },
+        { id: 4, src: '/templates/4.png', buttonText: 'Template 4' },
+        { id: 5, src: '/templates/5.png', buttonText: 'Template 5' },
+        { id: 6, src: '/templates/6.png', buttonText: 'Template 6' },
     ];
 
     const handleImageClick = (imageSrc: any) => {
