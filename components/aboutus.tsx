@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from "next/link"
 import { Coffee } from "lucide-react"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
-
+import ScrollIndicator from '@/components/ui/scroll-indicator'
 export function Aboutus() {
   return (
     <main className="w-full">
@@ -30,6 +30,7 @@ export function Aboutus() {
             />
           </div>
         </div>
+        <ScrollIndicator />
       </section>
 
       <section className="w-full bg-gray-900 py-12 md:py-16 lg:py-20 dark:bg-gray-950">
