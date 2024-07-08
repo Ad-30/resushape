@@ -17,9 +17,10 @@ const s3 = new S3Client({
 const acceptedTypes = ["image/jpeg", "image/png", "image/webp"];
 const maxFileSize = 1024 * 1024 * 10  // 10 MB
 
-const generateFileName = (originalFileName: string, bytes = 32) => {
+const generateFileName = (originalFileName: string, userID: string, bytes = 32) => {
     const fileExtension = originalFileName.split('.').pop();
-    const uniqueName = crypto.randomBytes(bytes).toString("hex");
+    // const uniqueName = crypto.randomBytes(bytes).toString("hex");
+    const uniqueName = userID
 
     return `${uniqueName}.${fileExtension}`;
 }
@@ -42,7 +43,8 @@ export const getSignedURL = async (type: string, size: number, checksum: string,
 
     const putObjectCommand = new PutObjectCommand({
         Bucket: process.env.AWS_BUCKET_NAME!,
-        Key: generateFileName(originalFileName),
+        Key: generateFileName(originalFileName, session?.user?.id!),
+
         ContentType: type,
         ContentLength: size,
         ChecksumSHA256: checksum,

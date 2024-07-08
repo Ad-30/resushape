@@ -96,6 +96,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
             ? { sectionHeading: session?.user.resumeDetails.headings.awards, awardsItems: savedAwardsData }
             : defaultAwardsData;
 
+
     const [resumeURL, setResumeURL] = useState<string | null>(null);
     const [isResumeLoading, setIsResumeLoading] = useState<boolean>(false);
     const [profileData, setProfileData] = useState<{ profile: ProfileData }>(initialProfileData);

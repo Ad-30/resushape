@@ -17,6 +17,8 @@ const Page = () => {
         { id: 2, src: '/home2.jpg', buttonText: 'Template 2' },
         { id: 3, src: '/home.jpg', buttonText: 'Template 3' },
         { id: 4, src: '/template4.png', buttonText: 'Template 4' },
+        { id: 5, src: '/template4.png', buttonText: 'Template 5' },
+        { id: 6, src: '/template4.png', buttonText: 'Template 6' },
     ];
 
     const handleImageClick = (imageSrc: any) => {

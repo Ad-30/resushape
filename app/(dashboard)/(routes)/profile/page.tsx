@@ -129,7 +129,7 @@ const Page = () => {
     const handleChangeClick = async () => {
         try {
             setIsLoading(true)
-            await deleteFile(profileData.profile.profilePicture);
+            profileData.profile.profilePicture ? await deleteFile(profileData.profile.profilePicture) : null;
             setFileUploaded(false);
             profileData.profile.profilePicture = "";
             profileData.profile.fileName = "";
