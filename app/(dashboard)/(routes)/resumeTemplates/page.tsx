@@ -44,14 +44,16 @@ const Page = () => {
                 <div className=' mx-auto my-auto grid gap-1 lg:grid-cols-2 sm:grid-cols-1'>
                     {templates.map((template) => (
                         <div key={template.id} className='py-2 px-2'>
-                            <Image
-                                alt="Template Image"
-                                className="rounded-xl cursor-pointer transition ease-in-out duration-300 lg:hover:scale-105"
-                                src={template.src}
-                                width={325}
-                                height={500}
-                                onClick={() => handleImageClick(template.src)} // Call handleImageClick on image click
-                            />
+                            <div className='flex justify-center'>
+                                <Image
+                                    alt="Template Image"
+                                    className="rounded-xl cursor-pointer transition ease-in-out duration-300 lg:hover:scale-105"
+                                    src={template.src}
+                                    width={325}
+                                    height={500}
+                                    onClick={() => handleImageClick(template.src)} // Call handleImageClick on image click
+                                />
+                            </div>
                             <div className='flex items-center justify-center mx-auto py-3'>
                                 <Button
                                     className={`border border-gray-600 hover:border-emerald-400 hover:text-emerald-400 bg:transparent text-white ${(selectedTemplate == template.id) ? 'border-emerald-400 text-emerald-400 bg:transparent' : ''}`}
