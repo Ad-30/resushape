@@ -72,11 +72,15 @@ export function Landing(props: any) {
         router.push('/resumeTemplates')
       }
 
-
     } catch (error) {
       console.error(error)
+    } finally {
+      if (!session?.user.resumeDetails) {
+        router.push('/resumeTemplates')
+      }
     }
   }
+
   return (
 
     <div className="flex  flex-col min-h-[100dvh] bg-gray-950 text-gray-50">
@@ -94,7 +98,7 @@ export function Landing(props: any) {
                     Create a Professional Resume in Minutes
                   </h1>
                   <p className="max-w-[600px] text-gray-400 md:text-xl dark:text-gray-400">
-                    Resumake makes it incredibly simple to create a stunning, professional resume using your personal information effortlessly.
+                    ResuShape makes it incredibly simple to create a stunning, professional resume using your personal information effortlessly.
                   </p>
                   {!session ?
                     <Button
@@ -206,7 +210,7 @@ export function Landing(props: any) {
                     Effortless Resume Building
                   </h2>
                   <p className="max-w-[600px] text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                    Resumake takes the hassle out of creating a professional resume. Simply sign in with Google and let
+                    ResuShape takes the hassle out of creating a professional resume. Simply sign in with Google and let
                     our platform generate a stunning resume tailored to your experience.
                   </p>
 
@@ -245,7 +249,7 @@ export function Landing(props: any) {
                     Stand Out from the Crowd
                   </h2>
                   <p className="max-w-[600px] text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                    Resumake helps you create a professional, visually appealing resume that showcases your skills and
+                    ResuShape helps you create a professional, visually appealing resume that showcases your skills and
                     experience. Impress potential employers and land your dream job.
                   </p>
                 </div>
@@ -286,7 +290,7 @@ export function Landing(props: any) {
                 Join Us on GitHub
               </h2>
               <p className="text-gray-400 md:text-xl">
-                Resumake is an open-source project, and we welcome contributions from the community. If you&apos;d like to get
+                ResuShape is an open-source project, and we welcome contributions from the community. If you&apos;d like to get
                 involved, check out our GitHub repository.
               </p>
             </div>

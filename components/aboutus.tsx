@@ -11,13 +11,13 @@ export function Aboutus() {
           <div className="grid max-w-2xl grid-cols-1 gap-6 md:grid-cols-[1fr_auto]">
             <div className="space-y-4 text-center md:text-left">
               <h1 className="text-4xl font-extrabold tracking-tight text-gray-50 sm:text-5xl md:text-6xl">
-                About Resumake
+                About ResuShape
               </h1>
               <blockquote className="text-xl font-medium italic leading-relaxed text-emerald-400 md:text-2xl">
                 &quot;We believe that a well-crafted resume is the key to unlocking opportunities. That&apos;s why we created
-                Resumake - to empower individuals to showcase their skills and achievements with ease.&quot;
+                ResuShape - to empower individuals to showcase their skills and achievements with ease.&quot;
                 <cite className="mt-4 block text-base font-normal not-italic text-gray-400">
-                  - Team Resumake
+                  - Team ResuShape
                 </cite>
               </blockquote>
             </div>
@@ -43,7 +43,7 @@ export function Aboutus() {
               Honoring Open-Source Contributions
             </h2>
             <p className="text-gray-500 dark:text-gray-400 md:text-xl">
-              Resumake would not be possible without the invaluable contributions of the open-source community. We
+              ResuShape would not be possible without the invaluable contributions of the open-source community. We
               extend our heartfelt gratitude to the creators of the LaTeX templates that have played a pivotal role in
               shaping the design and functionality of our resume templates.
             </p>
@@ -74,7 +74,7 @@ export function Aboutus() {
             <div className="rounded-lg bg-gray-950  p-6 shadow-lg dark:bg-gray-900 ">
               <h3 className="text-xl font-bold text-gray-50 ">Community-Driven</h3>
               <p className="mt-2 text-gray-400">
-                Resumake thrives on community contributions and collaboration. Our platform is a testament to the power of
+                ResuShape thrives on community contributions and collaboration. Our platform is a testament to the power of
                 collective efforts, where individuals from diverse backgrounds come together to shape the future of resume
                 creation.
               </p>
@@ -82,7 +82,7 @@ export function Aboutus() {
             <div className="rounded-lg bg-gray-950 p-6 shadow-lg dark:bg-gray-900">
               <h3 className="text-xl font-bold text-gray-50">Innovation Through Collaboration</h3>
               <p className="mt-2 text-gray-400">
-                Collaboration is at the heart of Resumake&apos;s development. We believe in fostering an environment where innovation
+                Collaboration is at the heart of ResuShape&apos;s development. We believe in fostering an environment where innovation
                 flourishes through shared knowledge and resources. Our platform reflects the collective intelligence and
                 creativity of the open-source community.
               </p>
@@ -106,17 +106,17 @@ export function Aboutus() {
               width={150}
             />
             <blockquote className="space-y-2 text-lg font-medium italic leading-relaxed text-emerald-400 md:text-xl">
-              &quot;At Resumake, we&apos;re driven by the vision of empowering individuals through polished resumes that unlock opportunities.&quot;
+              &quot;At ResuShape, we&apos;re driven by the vision of empowering individuals through polished resumes that unlock opportunities.&quot;
               <cite className="mt-2 block text-base font-normal not-italic text-gray-500 dark:text-gray-400">
-                - Aditya Vyas, Co-founder of Resumake
+                - Aditya Vyas, Co-founder of ResuShape
               </cite>
             </blockquote>
           </div>
           <div className="flex items-center gap-6">
             <blockquote className="space-y-2 text-lg font-medium italic leading-relaxed text-emerald-400 md:text-xl">
-              &quot;As a co-founder, Resumake&apos;s mission is to democratize career advancement, empowering individuals with standout resumes that foster success.&quot;
+              &quot;As a co-founder, ResuShape&apos;s mission is to democratize career advancement, empowering individuals with standout resumes that foster success.&quot;
               <cite className="mt-2 block text-base font-normal not-italic text-gray-500 dark:text-gray-400">
-                - Aditya Singh Rajawat, Co-founder of Resumake
+                - Aditya Singh Rajawat, Co-founder of ResuShape
               </cite>
             </blockquote>
             <Image
@@ -143,7 +143,7 @@ export function Aboutus() {
               Crafting Resumes with Ease
             </h2>
             <p className="text-gray-500 dark:text-gray-400 md:text-xl">
-              Resumake is a free-to-use platform that helps you create a professional-looking resume in minutes. By
+              ResuShape is a free-to-use platform that helps you create a professional-looking resume in minutes. By
               leveraging user data, we generate a customized resume that showcases your skills and achievements,
               ensuring a seamless and enjoyable experience.
             </p>
@@ -152,7 +152,7 @@ export function Aboutus() {
             <div className="rounded-lg bg-gray-950 p-6 shadow-lg dark:bg-gray-900">
               <h3 className="text-xl font-bold text-gray-50">Free to Use</h3>
               <p className="mt-2 text-gray-400">
-                Resumake is completely free to use, allowing you to create a resume without any financial burden.
+                ResuShape is completely free to use, allowing you to create a resume without any financial burden.
               </p>
             </div>
             <div className="rounded-lg bg-gray-950 p-6 shadow-lg dark:bg-gray-900">
@@ -175,7 +175,7 @@ export function Aboutus() {
               Join Us on GitHub
             </h2>
             <p className="text-gray-400 md:text-xl">
-              Resumake is an open-source project, and we welcome contributions from the community. If you&apos;d like to get
+              ResuShape is an open-source project, and we welcome contributions from the community. If you&apos;d like to get
               involved, check out our GitHub repository.
             </p>
           </div>

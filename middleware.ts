@@ -1,47 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
+import { DEFAULT_LOGIN_REDIRECT, apiAuthPrefix, authRoutes, publicRoutes } from "@/routes";
 
 export { default } from "next-auth/middleware";
-import { DEFAULT_LOGIN_REDIECT, apiAuthPrefix, authRoutes, publicRoutes } from "@/routes";
 
-export async function middleware(request: NextRequest, response: NextResponse) {
+export async function middleware(request: NextRequest) {
+    try {
+        const token = await getToken({ req: request });
+        const { nextUrl } = request;
+        const isLoggedIn = !!token;
 
-    const token = await getToken({ req: request });
-    const { nextUrl } = request;
-    const isLoggedIn = !!token;
+        const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
+        const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+        const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-    const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-    const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-    const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+        // Allow API auth routes to proceed without checking login status
+        if (isApiAuthRoute) {
+            return NextResponse.next();
+        }
 
-    if (isApiAuthRoute) {
-        return;
+        // Redirect to login if not logged in and trying to access a protected route
+        if (!isLoggedIn && !isPublicRoute) {
+            return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+        }
+
+        // Allow all other requests to proceed
+        return NextResponse.next();
+
+    } catch (error) {
+        console.error("Error in middleware:", error);
+        return NextResponse.redirect(new URL("/", request.url));
     }
-
-    // if (isAuthRoute || isPublicRoute) {
-    //     if (isLoggedIn) {
-    //         return Response.redirect(new URL(DEFAULT_LOGIN_REDIECT, nextUrl));
-    //     }
-    //     return;
-    // }
-    if (nextUrl.pathname === "/aboutus") {
-        return;
-    }
-    if (nextUrl.pathname === "/privacy") {
-        return;
-    }
-    if (nextUrl.pathname === "/cookiepolicy") {
-        return;
-    }
-
-    if (!isLoggedIn && !isPublicRoute) {
-        return Response.redirect(new URL("/", nextUrl));
-    }
-
-    return;
-
 }
 
 export const config = {
-    matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+    matcher: ["/((?!.*\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };

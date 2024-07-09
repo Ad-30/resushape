@@ -16,7 +16,7 @@ export function Cookiepolicy() {
               <div>
                 <h2 className="text-2xl font-bold">Cookies and Data Security</h2>
                 <p className="mt-2">
-                  At Resumake, we take the security and privacy of your personal information very seriously. To ensure a
+                  At ResuShape, we take the security and privacy of your personal information very seriously. To ensure a
                   seamless and personalized user experience, we utilize cookies and other web analytics tools to collect
                   information about how you interact with our website.
                 </p>
@@ -28,7 +28,7 @@ export function Cookiepolicy() {
               </div>
               <div>
                 <h2 className="text-2xl font-bold">Types of Cookies Used</h2>
-                <p className="mt-2">Resumake uses the following types of cookies:</p>
+                <p className="mt-2">ResuShape uses the following types of cookies:</p>
                 <ul className="mt-2 list-disc pl-6 space-y-2">
                   <li>
                     <strong>Strictly Necessary Cookies:</strong>
@@ -54,9 +54,9 @@ export function Cookiepolicy() {
                   experience and improving our service. We do not share or sell this data to any third parties.
                 </p>
                 <p className="mt-2">
-                  Resumake takes extensive measures to protect your personal information, including the use of
+                  ResuShape takes extensive measures to protect your personal information, including the use of
                   industry-standard encryption and security protocols. Your data is stored securely in our encrypted
-                  database, and access is limited to authorized Resumake employees who need the information to maintain
+                  database, and access is limited to authorized ResuShape employees who need the information to maintain
                   and improve our service.
                 </p>
               </div>
@@ -72,13 +72,13 @@ export function Cookiepolicy() {
                   to contact us at:
                 </p>
                 <p className="mt-2">
-                  Resumake, Inc.
+                  ResuShape, Inc.
                   <br />
                   123 Main Street
                   <br />
                   Anytown, USA 12345
                   <br />
-                  privacy@resumake.com
+                  privacy@ResuShape.com
                 </p> */}
               </div>
             </div>

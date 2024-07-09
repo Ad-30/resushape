@@ -5,7 +5,10 @@
  */
 
 export const publicRoutes = [
-    "/"
+    "/",
+    "/aboutus",
+    "/privacy",
+    "/cookiepolicy"
 ];
 
 /**
@@ -31,7 +34,7 @@ export const apiAuthPrefix = "/api/auth";
  * @type {string}
  */
 
-export const DEFAULT_LOGIN_REDIECT = "/profile";
+export const DEFAULT_LOGIN_REDIRECT = "/";
 
 /**
  * The The dashboard routes where a user can go after loggedIn

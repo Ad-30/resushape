@@ -55,7 +55,7 @@ export default function LeftPanel() {
         try {
             const formData = new FormData();
             formData.append('applicantData', JSON.stringify(applicantData));
-            formData.append('imageURL', imageURL || defaultImageURL);
+            formData.append('imageURL', imageURL);
 
             const response = await fetch('https://latexapi.pythonanywhere.com/latexResume', {
                 method: 'POST',
@@ -98,9 +98,10 @@ export default function LeftPanel() {
         } catch (error) {
             console.error(error);
         } finally {
-            await handleSubmit(convertToApplicantData(resumeDetails), profileData.profile.profilePicture || '')
+            await handleSubmit(convertToApplicantData(resumeDetails), profileData.profile.profilePicture || defaultImageURL)
         }
     }
+
 
     const pathname = usePathname();
     return (

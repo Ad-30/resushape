@@ -18,7 +18,7 @@ export function Navbar(props: any) {
     return (
         <header className="fixed top-0 left-0 right-0 z-50 px-4 lg:px-6 h-16 flex items-center bg-gray-950 shadow-lg transition-all duration-300 ease-in-out">
             <Link className="flex items-center justify-center" href="/">
-                <h1 className="text-2xl lg:ml-12 font-bold text-white">resu<span className="text-emerald-400">make</span></h1>
+                <h1 className="text-2xl lg:ml-12 font-bold text-white">resu<span className="text-emerald-400">shape</span></h1>
             </Link>
             <nav className="ml-auto flex items-center gap-4 sm:gap-6">
                 <Link className={`text-sm font-medium hidden md:block hover:text-emerald-500 transition-colors ${currentPathname === '/' ? 'text-emerald-500' : ''}`} href="/">

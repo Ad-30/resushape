@@ -17,7 +17,7 @@ export default function TopPanel() {
     return (
         <header className="flex h-16 w-full items-center justify-between bg-gray-950 px-4 md:px-6">
             <Link className="text-lg font-bold text-gray-50" href="/">
-                <h1 className="text-2xl lg:ml-12 font-bold text-white">resu<span className="text-emerald-400">make</span></h1>
+                <h1 className="text-2xl lg:ml-12 font-bold text-white">resu<span className="text-emerald-400">shape</span></h1>
             </Link>
             <div className="flex items-center gap-4">
 

@@ -16,7 +16,7 @@ export function Privacypolicy() {
               <div>
                 <h2 className="text-2xl font-bold">Data Collection</h2>
                 <p className="mt-2">
-                  Resumake collects certain personal information from users, including your name, email address, and
+                  ResuShape collects certain personal information from users, including your name, email address, and
                   details about your resume. This information is collected directly through user input when you create
                   an account or use our resume builder.
                 </p>
@@ -29,19 +29,19 @@ export function Privacypolicy() {
               <div>
                 <h2 className="text-2xl font-bold">Data Usage</h2>
                 <p className="mt-2">
-                  Resumake uses the personal information we collect solely for the purpose of providing our resume
+                  ResuShape uses the personal information we collect solely for the purpose of providing our resume
                   building and management service. We do not share or sell your data to any third parties.
                 </p>
                 <p className="mt-2">
                   Your resume details and other personal information are stored securely in our encrypted database and
-                  are only accessible to authorized Resumake employees who need the information to maintain and improve
+                  are only accessible to authorized ResuShape employees who need the information to maintain and improve
                   our service.
                 </p>
               </div>
               <div>
                 <h2 className="text-2xl font-bold">Data Security</h2>
                 <p className="mt-2">
-                  Resumake takes the security of your personal information very seriously. We use industry-standard
+                  ResuShape takes the security of your personal information very seriously. We use industry-standard
                   encryption and security protocols to protect your data from unauthorized access, modification, or
                   disclosure.
                 </p>
@@ -53,7 +53,7 @@ export function Privacypolicy() {
               <div>
                 <h2 className="text-2xl font-bold">Cookies and Analytics</h2>
                 <p className="mt-2">
-                  Resumake uses cookies and web analytics tools to collect information about how you use our website.
+                  ResuShape uses cookies and web analytics tools to collect information about how you use our website.
                   This data helps us improve the user experience and ensure our service is functioning properly.
                 </p>
                 <p className="mt-2">
@@ -64,7 +64,7 @@ export function Privacypolicy() {
               <div>
                 <h2 className="text-2xl font-bold">Data Retention</h2>
                 <p className="mt-2">
-                  Resumake retains user data for as long as necessary to provide our service and comply with legal and
+                  ResuShape retains user data for as long as necessary to provide our service and comply with legal and
                   regulatory requirements. We will delete or anonymize your personal information upon your request, or
                   when it is no longer needed for the purposes it was collected.
                 </p>
@@ -76,13 +76,13 @@ export function Privacypolicy() {
                   at:
                 </p>
                 <p className="mt-2">
-                  Resumake, Inc.
+                  ResuShape, Inc.
                   <br />
                   123 Main Street
                   <br />
                   Anytown, USA 12345
                   <br />
-                  privacy@resumake.com
+                  privacy@ResuShape.com
                 </p>
               </div> */}
             </div>

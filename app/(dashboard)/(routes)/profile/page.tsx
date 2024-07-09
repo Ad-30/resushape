@@ -25,6 +25,7 @@ const Page = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isLabelFocused, setIsLabelFocused] = useState<boolean>(false);
     const [fileName, setFileName] = useState<string | undefined>(profileData.profile.fileName);
+    const [profilePicture, setProfilePicture] = useState<string>('');
 
     const form = useForm<z.infer<typeof ProfileSchema>>({
         resolver: zodResolver(ProfileSchema),
@@ -56,6 +57,13 @@ const Page = () => {
             const subscription = form.watch((values) => {
                 const updatedProfileData = { profile: { ...profileData.profile, ...values } };
                 setProfileData(updatedProfileData);
+                setProfileData(prevProfileData => ({
+                    ...prevProfileData,
+                    profile: {
+                        ...prevProfileData.profile,
+                        profilePicture: profilePicture,
+                    },
+                }));
                 Cookies.set('profileData', JSON.stringify(updatedProfileData))
             });
             return () => subscription.unsubscribe();
@@ -101,6 +109,7 @@ const Page = () => {
                 const { url, fileURL } = signedURLResult.success
                 profileData.profile.profilePicture = fileURL;
                 profileData.profile.fileName = file.name;
+                setProfilePicture(fileURL)
 
                 const response = await fetch(url ? url : "", {
                     method: "PUT",
