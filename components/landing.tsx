@@ -43,7 +43,7 @@ export function Landing(props: any) {
   const profileData: { profile: ProfileData } = savedProfileData ? JSON.parse(savedProfileData) : { profile: { fullName: "", email: "", phoneNumber: "", location: "", link: "", profilePicture: "", fileName: "" } };
 
   const continueSessionClick = () => {
-    router.push('/profile');
+    router.push('/resumeTemplates');
   }
 
   const newResumeClick = async () => {

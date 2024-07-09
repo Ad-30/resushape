@@ -27,7 +27,7 @@ export function Navbar(props: any) {
                 <Link className={`text-sm font-medium hidden md:block hover:text-emerald-500 transition-colors ${currentPathname === '/aboutus' ? 'text-emerald-500' : ''}`} href="/aboutus">
                     About Us
                 </Link>
-                {session && <Link className="text-sm font-medium hidden md:block hover:text-emerald-500 transition-colors" href="/profile">
+                {session && <Link className="text-sm font-medium hidden md:block hover:text-emerald-500 transition-colors" href="/resumeTemplates">
                     Create
                 </Link>}
                 {!session ? (<Link className="text-sm font-medium hover:text-emerald-500 transition-colors" href="#" onClick={signInWithGoogle}>
@@ -61,7 +61,7 @@ export function Navbar(props: any) {
 
                             {session &&
                                 <DropdownMenuItem className="lg:hidden">
-                                    <Link className="text-sm font-medium hover:text-emerald-500 transition-colors" href="/profile">
+                                    <Link className="text-sm font-medium hover:text-emerald-500 transition-colors" href="/resumeTemplates">
                                         Create Resume
                                     </Link>
                                 </DropdownMenuItem>}

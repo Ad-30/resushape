@@ -107,12 +107,12 @@ export function Aboutus() {
               }}
               width={150}
             />
-            <blockquote className="space-y-2 text-lg font-medium italic leading-relaxed text-emerald-400 md:text-xl">
-              &quot;At ResuShape, we&apos;re driven by the vision of empowering individuals through polished resumes that unlock opportunities.&quot;
+            <blockquote className="space-y-4 text-lg font-medium italic leading-relaxed text-emerald-400 md:text-xl">
+              &quot;At ResuShape, we&apos;re driven by the vision of empowering individuals through polished resumes that unlock limitless career opportunities.&quot;
               <cite className="mt-2 block text-base font-normal not-italic text-gray-500 dark:text-gray-400">
                 - Aditya Vyas, Co-founder of ResuShape
               </cite>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 <Link
                   href="https://github.com/Ad-30"
                   className="text-gray-500 hover:text-emerald-400 dark:text-gray-400 dark:hover:text-emerald-400"
@@ -138,12 +138,12 @@ export function Aboutus() {
             </blockquote>
           </div>
           <div className="flex items-center gap-6">
-            <blockquote className="space-y-2 text-lg font-medium italic leading-relaxed text-emerald-400 md:text-xl">
+            <blockquote className="space-y-4 text-lg font-medium italic leading-relaxed text-emerald-400 md:text-xl">
               &quot;As a co-founder, ResuShape&apos;s mission is to democratize career advancement, empowering individuals with standout resumes that foster success.&quot;
               <cite className="mt-2 block text-base font-normal not-italic text-gray-500 dark:text-gray-400">
                 - Aditya Singh Rajawat, Co-founder of ResuShape
               </cite>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 <Link
                   href="https://github.com/AdityaSinghRajawat"
                   className="text-gray-500 hover:text-emerald-400 dark:text-gray-400 dark:hover:text-emerald-400"
