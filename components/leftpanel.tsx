@@ -36,13 +36,13 @@ export default function LeftPanel() {
     }
 
     useEffect(() => {
-        console.log(profileData);
-        console.log(educationData);
-        console.log(workData);
-        console.log(skillsData);
-        console.log(projectData);
-        console.log(awardsData);
-        console.log(selectedTemplate);
+        // console.log(profileData);
+        // console.log(educationData);
+        // console.log(workData);
+        // console.log(skillsData);
+        // console.log(projectData);
+        // console.log(awardsData);
+        // console.log(selectedTemplate);
 
     }, [profileData, educationData, workData, skillsData, projectData, awardsData, selectedTemplate])
 

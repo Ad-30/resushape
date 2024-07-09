@@ -107,7 +107,7 @@ const PDFViewerComponent: React.FC<PDFViewerComponentProps> = ({ resumeURL, isRe
                                                 )}
                                             </ZoomOut>
                                         </div>
-                                        <div title="Zoom Options" className={`${isMobile ? 'hidden' : ''}`} >
+                                        <div title="Zoom Options" className='hidden' >
                                             <Zoom >
                                             </Zoom>
                                         </div>

@@ -58,7 +58,29 @@ const Page = () => {
     const [sectionHeading, setSectionHeading] = useState(initialWorkData.sectionHeading);
     const addWork = () => {
         const newId = workForms.length;
-        setWorkForms(prevForms => [...prevForms, <WorkForm key={prevForms.length} workCount={prevForms.length + 1} updateWorkItem={updateWorkItem} />]);
+        const newWorkItem: WorkItem = {
+            companyName: '',
+            jobTitle: '',
+            jobLocation: '',
+            position: '',
+            startDate: '',
+            endDate: '',
+            description: []
+        };
+
+        setWorkForms(prevForms => [
+            ...prevForms,
+            <WorkForm
+                key={newId}
+                workCount={newId + 1}
+                updateWorkItem={updateWorkItem}
+                initialValues={newWorkItem}
+            />
+        ]);
+        setWorkData(prevData => ({
+            ...prevData,
+            workItems: [...prevData.workItems, newWorkItem]
+        }));
     };
 
     const removeWork = () => {

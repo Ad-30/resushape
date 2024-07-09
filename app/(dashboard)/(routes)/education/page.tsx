@@ -59,13 +59,35 @@ const Page = () => {
 
     const addSchool = () => {
         const newId = educationForms.length;
-        setEducationForms(prevForms => [...prevForms, <EducationForm key={prevForms.length} educationCount={prevForms.length + 1} updateEducationItem={updateEducationItem} />]);
+        const newEducationItem: EducationItem = {
+            school: '',
+            schoolLocation: '',
+            degree: '',
+            major: '',
+            gpa: '',
+            startDate: '',
+            endDate: ''
+        };
+
+        setEducationForms(prevForms => [
+            ...prevForms,
+            <EducationForm
+                key={newId}
+                educationCount={newId + 1}
+                updateEducationItem={updateEducationItem}
+                initialValues={newEducationItem}
+            />
+        ]);
+        setEducationData(prevData => ({
+            ...prevData,
+            educationItems: [...prevData.educationItems, newEducationItem]
+        }));
     };
 
     const removeSchool = () => {
         if (educationForms.length > 1) {
             setEducationForms(educationForms.slice(0, -1));
-            setEducationData(prevData => ({ ...prevData, awardsItems: prevData.educationItems.slice(0, -1) }));
+            setEducationData(prevData => ({ ...prevData, educationItems: prevData.educationItems.slice(0, -1) }));
         }
     };
     const handleSectionHeadingChange = (e: React.ChangeEvent<HTMLInputElement>) => {

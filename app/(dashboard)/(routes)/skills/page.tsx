@@ -59,7 +59,24 @@ const Page = () => {
     const [sectionHeading, setSectionHeading] = useState(initialSkillsData.sectionHeading);
     const addSkill = () => {
         const newId = skillsForms.length;
-        setSkillsForms(prevForms => [...prevForms, <SkillsForm key={prevForms.length} skillsCount={prevForms.length + 1} updateSkillsItem={updateSkillsItem} />]);
+        const newSkillsItem: SkillsItem = {
+            skillName: '',
+            skillDetail: []
+        };
+
+        setSkillsForms(prevForms => [
+            ...prevForms,
+            <SkillsForm
+                key={newId}
+                skillsCount={newId + 1}
+                updateSkillsItem={updateSkillsItem}
+                initialValues={newSkillsItem}
+            />
+        ]);
+        setSkillsData(prevData => ({
+            ...prevData,
+            skillsItems: [...prevData.skillsItems, newSkillsItem]
+        }));
     };
 
 
@@ -67,6 +84,7 @@ const Page = () => {
         if (skillsForms.length > 1) {
             setSkillsForms(skillsForms.slice(0, -1));
             setSkillsData(prevData => ({ ...prevData, skillsItems: prevData.skillsItems.slice(0, -1) }));
+
         }
     };
     const handleSectionHeadingChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -63,8 +63,32 @@ const Page = () => {
     const [sectionHeading, setSectionHeading] = useState(initialProjectData.sectionHeading);
 
     const addProject = () => {
+        console.log('old add', projectData);
+
         const newId = projectForms.length;
-        setProjectForms(prevForms => [...prevForms, <ProjectForm key={prevForms.length} projectCount={prevForms.length + 1} updateProjectItem={updateProjectItem} />]);
+        const newProjectItem: ProjectItem = {
+            projectName: '',
+            projectDescription: '',
+            projectLink: '',
+            toolsUsed: []
+        };
+
+        setProjectForms(prevForms => [
+            ...prevForms,
+            <ProjectForm
+                key={newId}
+                projectCount={newId + 1}
+                updateProjectItem={updateProjectItem}
+                initialValues={newProjectItem}
+            />
+        ]);
+
+        setProjectData(prevData => ({
+            ...prevData,
+            projectItems: [...prevData.projectItems, newProjectItem]
+        }));
+        console.log('new add', projectData);
+
     };
 
 

@@ -48,7 +48,6 @@ const Page = () => {
     }
 
     useEffect(() => {
-        // Save project data to cookie whenever it changes
         if (typeof window !== 'undefined') {
             Cookies.set('awardsData', JSON.stringify(awardsData));
         }
@@ -61,7 +60,15 @@ const Page = () => {
 
     const addAward = () => {
         const newId = awardsForms.length;
-        setAwardsForms(prevForms => [...prevForms, <AwardsForm key={prevForms.length} awardsCount={prevForms.length + 1} updateAwardsItem={updateAwardsItem} />]);
+        const newAwardItem: AwardsItem = { awardName: '', awardDate: '', description: '', awarder: '' }; // Adjust according to the fields in AwardsItem
+        setAwardsForms(prevForms => [...prevForms, <AwardsForm key={newId} awardsCount={newId + 1} updateAwardsItem={updateAwardsItem} initialValues={newAwardItem} />]);
+        setAwardsData(prevData => ({
+            ...prevData,
+            awardsItems: [
+                ...prevData.awardsItems,
+                newAwardItem
+            ]
+        }));
     };
 
 

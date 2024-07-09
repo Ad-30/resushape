@@ -34,7 +34,6 @@ export interface ProjectFormProps {
     projectCount: number;
     updateProjectItem: any;
     initialValues?: ProjectItem;
-
 }
 export interface ProjectItem {
     projectName: string,
