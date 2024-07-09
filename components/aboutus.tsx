@@ -2,7 +2,8 @@ import Image from 'next/image'
 import Link from "next/link"
 import { Coffee } from "lucide-react"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
-import ScrollIndicator from '@/components/ui/scroll-indicator'
+import { Linkedin, Mail } from 'lucide-react';
+import { FiGithub } from "react-icons/fi";
 export function Aboutus() {
   return (
     <main className="w-full">
@@ -30,7 +31,7 @@ export function Aboutus() {
             />
           </div>
         </div>
-        <ScrollIndicator />
+
       </section>
 
       <section className="w-full bg-gray-900 py-12 md:py-16 lg:py-20 dark:bg-gray-950">
@@ -110,6 +111,29 @@ export function Aboutus() {
               <cite className="mt-2 block text-base font-normal not-italic text-gray-500 dark:text-gray-400">
                 - Aditya Vyas, Co-founder of ResuShape
               </cite>
+              <div className="flex items-center gap-2">
+                <Link
+                  href="https://github.com/Ad-30"
+                  className="text-gray-500 hover:text-emerald-400 dark:text-gray-400 dark:hover:text-emerald-400"
+                  prefetch={false}
+                >
+                  <FiGithub className="h-5 w-5" />
+                </Link>
+                <Link
+                  href="https://www.linkedin.com/in/aditya5vyas/"
+                  className="text-gray-500 hover:text-emerald-400 dark:text-gray-400 dark:hover:text-emerald-400"
+                  prefetch={false}
+                >
+                  <Linkedin className="h-5 w-5" />
+                </Link>
+                <Link
+                  href="mailto:adityavyascs@gmail.com"
+                  className="text-gray-500 hover:text-emerald-400 dark:text-gray-400 dark:hover:text-emerald-400"
+                  prefetch={false}
+                >
+                  <Mail className="h-5 w-5" />
+                </Link>
+              </div>
             </blockquote>
           </div>
           <div className="flex items-center gap-6">
@@ -118,6 +142,29 @@ export function Aboutus() {
               <cite className="mt-2 block text-base font-normal not-italic text-gray-500 dark:text-gray-400">
                 - Aditya Singh Rajawat, Co-founder of ResuShape
               </cite>
+              <div className="flex items-center gap-2">
+                <Link
+                  href="https://github.com/AdityaSinghRajawat"
+                  className="text-gray-500 hover:text-emerald-400 dark:text-gray-400 dark:hover:text-emerald-400"
+                  prefetch={false}
+                >
+                  <FiGithub className="h-5 w-5" />
+                </Link>
+                <Link
+                  href="https://www.linkedin.com/in/aditya-singh-rajawat-685364234/"
+                  className="text-gray-500 hover:text-emerald-400 dark:text-gray-400 dark:hover:text-emerald-400"
+                  prefetch={false}
+                >
+                  <Linkedin className="h-5 w-5" />
+                </Link>
+                <Link
+                  href="mailto:adityasinghrajawat393@gmail.com"
+                  className="text-gray-500 hover:text-emerald-400 dark:text-gray-400 dark:hover:text-emerald-400"
+                  prefetch={false}
+                >
+                  <Mail className="h-5 w-5" />
+                </Link>
+              </div>
             </blockquote>
             <Image
               alt="Aditya Singh Rajawat"

@@ -24,8 +24,6 @@ import Cookies from 'js-cookie';
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { deleteFile } from "@/actions/upload";
 import { ProfileData } from "@/app/interfaces";
-import { motion } from 'framer-motion';
-import ScrollIndicator from "@/components/ui/scroll-indicator";
 const signInWithGoogle = async () => {
   await signIn("google")
 }
@@ -182,9 +180,6 @@ export function Landing(props: any) {
               </div>
             </div>
           </div>
-
-          <ScrollIndicator />
-
         </section>
 
 
