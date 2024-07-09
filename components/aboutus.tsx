@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from "next/link"
 import { Coffee } from "lucide-react"
 import { GitHubLogoIcon } from "@radix-ui/react-icons"
+import ScrollIndicator from '@/components/ui/scroll-indicator'
 import { Linkedin, Mail } from 'lucide-react';
 import { FiGithub } from "react-icons/fi";
 export function Aboutus() {
