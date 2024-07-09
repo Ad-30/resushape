@@ -61,13 +61,20 @@ export function Landing(props: any) {
 
       profileData.profile.profilePicture ? await deleteFile(profileData.profile.profilePicture) : null;
 
-      const response = await axios.delete('/api/resume')
-      console.log(response);
+      if (session?.user.resumeDetails) {
+        const response = await axios.delete('/api/resume')
+        console.log(response);
+
+        if (response.data.success) {
+          router.push('/resumeTemplates')
+        }
+      } else {
+        router.push('/resumeTemplates')
+      }
+
 
     } catch (error) {
-
-    } finally {
-      router.push('/resumeTemplates')
+      console.error(error)
     }
   }
   return (
