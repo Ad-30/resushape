@@ -95,7 +95,7 @@ const PDFViewerComponent: React.FC<PDFViewerComponentProps> = ({ resumeURL, isRe
                                                 )}
                                             </GoToNextPage>
                                         </div>
-                                        <div title="Zoom Out" className={`${isMobile ? 'hidden' : ''}`}>
+                                        <div title="Zoom Out" >
                                             <ZoomOut >
                                                 {(props: RenderZoomOutProps) => (
                                                     <button
@@ -111,7 +111,7 @@ const PDFViewerComponent: React.FC<PDFViewerComponentProps> = ({ resumeURL, isRe
                                             <Zoom >
                                             </Zoom>
                                         </div>
-                                        <div title="Zoom In" className={`${isMobile ? 'hidden' : ''}`}>
+                                        <div title="Zoom In" >
                                             <ZoomIn>
                                                 {(props: RenderZoomInProps) => (
                                                     <button
