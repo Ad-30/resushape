@@ -5,8 +5,7 @@ import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 import axios from "axios";
 import './List.css';
-import { AwardsItem, EducationItem, ProfileData, ProjectItem, SkillsItem, WorkItem } from "@/app/interfaces";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ConvertedApplicantData, convertToApplicantData } from "@/utils/dataConversion";
 import { useSession } from "next-auth/react";
 import ResumeContext from "@/context/ResumeContext";
@@ -35,16 +34,15 @@ export default function LeftPanel() {
         awards: awardsData.awardsItems
     }
 
-    useEffect(() => {
-        // console.log(profileData);
-        // console.log(educationData);
-        // console.log(workData);
-        // console.log(skillsData);
-        // console.log(projectData);
-        // console.log(awardsData);
-        // console.log(selectedTemplate);
-
-    }, [profileData, educationData, workData, skillsData, projectData, awardsData, selectedTemplate])
+    // useEffect(() => {
+    //     console.log(profileData);
+    //     console.log(educationData);
+    //     console.log(workData);
+    //     console.log(skillsData);
+    //     console.log(projectData);
+    //     console.log(awardsData);
+    //     console.log(selectedTemplate);
+    // }, [profileData, educationData, workData, skillsData, projectData, awardsData, selectedTemplate])
 
     const defaultImageURL = "https://resushape.s3.eu-north-1.amazonaws.com/user.png"
 

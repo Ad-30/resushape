@@ -68,7 +68,7 @@ const Page = () => {
             });
             return () => subscription.unsubscribe();
         }
-    }, [form, profileData]);
+    }, [form, profileData, profilePicture, setProfileData]);
 
     Cookies.set('profileData', JSON.stringify(profileData));
 

@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { SkillsFormProps } from '@/app/interfaces';
 
 const SkillsForm: React.FC<SkillsFormProps> = (props) => {
+    
     const [skillsCount, setSkillsCount] = useState(props.initialValues?.skillDetail?.length || 1);
 
     const form = useForm<z.infer<typeof SkillsSchema>>({
@@ -27,7 +28,7 @@ const SkillsForm: React.FC<SkillsFormProps> = (props) => {
             return () => subscription.unsubscribe();
         }
 
-    }, [form]);
+    }, [form, props]);
 
     const handleAddTool = () => {
         const currentSkillDetails = form.getValues('skillDetail') || [];

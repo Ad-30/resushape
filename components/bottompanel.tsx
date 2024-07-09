@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { ConvertedApplicantData, convertToApplicantData } from "@/utils/dataConversion";
-import { AwardsItem, EducationItem, ProfileData, ProjectItem, SkillsItem, WorkItem } from "@/app/interfaces";
 import axios from "axios";
 import ResumeContext from "@/context/ResumeContext";
 

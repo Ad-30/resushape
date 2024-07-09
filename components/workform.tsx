@@ -32,7 +32,7 @@ const WorkForm: React.FC<WorkFormProps> = (props) => {
             return () => subscription.unsubscribe();
         }
 
-    }, [form]);
+    }, [form, props]);
 
     const handleAddTool = () => {
         const currentDescriptions = form.getValues('description') || [];

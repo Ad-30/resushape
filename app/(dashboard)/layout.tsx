@@ -5,11 +5,12 @@ import LeftPanel from "@/components/leftpanel";
 import RightPanel from "@/components/rightpanel";
 import TopPanel from "@/components/toppanel";
 import ResumeContext from "@/context/ResumeContext";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AwardsItem, EducationItem, ProfileData, ProjectItem, SkillsItem, WorkItem } from "../interfaces";
 import Cookies from 'js-cookie';
 import { useSession } from "next-auth/react";
 import { LoadingPageComponent } from '@/components/loading-page-component';
+
 const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
     const { data: session } = useSession();
     const [isClient, setIsClient] = useState(false);
@@ -18,7 +19,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
         setIsClient(true);
     }, []);
 
-    const getInitialData = () => {
+    const getInitialData = useCallback(() => {
         const cookiesProfileData = Cookies.get('profileData');
         const parsedProfileData = cookiesProfileData ? JSON.parse(cookiesProfileData) : null;
 
@@ -112,7 +113,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
             initialProjectData,
             initialAwardsData
         };
-    };
+    }, [session]);
 
     const {
         initialProfileData,
@@ -154,13 +155,11 @@ const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
             setProjectData(initialProjectData);
             setAwardsData(initialAwardsData);
         }
-    }, [isClient, session]);
+    }, [isClient, session, getInitialData]);
 
     if (!isClient) {
         return (
-
             <LoadingPageComponent />
-
         )
     }
 
