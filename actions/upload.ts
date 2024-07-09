@@ -4,13 +4,12 @@ import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import crypto from "crypto";
 
 const s3 = new S3Client({
-    region: process.env.AWS_BUCKET_REGION!,
+    region: process.env.CLOUD_BUCKET_REGION!,
     credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY!,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+        accessKeyId: process.env.CLOUD_ACCESS_KEY!,
+        secretAccessKey: process.env.CLOUD_SECRET_ACCESS_KEY!,
     },
 });
 
@@ -42,7 +41,7 @@ export const getSignedURL = async (type: string, size: number, checksum: string,
     }
 
     const putObjectCommand = new PutObjectCommand({
-        Bucket: process.env.AWS_BUCKET_NAME!,
+        Bucket: process.env.CLOUD_BUCKET_NAME!,
         Key: generateFileName(originalFileName, session?.user?.id!),
 
         ContentType: type,
@@ -75,7 +74,7 @@ export const deleteFile = async (fileURL: string) => {
     const key = url.pathname.substring(1);
 
     const deleteObjectCommand = new DeleteObjectCommand({
-        Bucket: process.env.AWS_BUCKET_NAME!,
+        Bucket: process.env.CLOUD_BUCKET_NAME!,
         Key: key,
     });
 
