@@ -99,22 +99,17 @@ const Page = () => {
             if (file) {
                 setIsLoading(true)
                 const checkSum = await computeSHA256(file)
-                console.log('3 before');
                 const signedURLResult = await getSignedURL(file?.type, file?.size, checkSum, file?.name)
-                console.log('3', file, signedURLResult);
+
                 if (signedURLResult.failure !== undefined) {
                     console.log("error");
                     throw (new Error(signedURLResult.failure))
                 }
-                console.log('4', file);
 
                 const { url, fileURL } = signedURLResult.success
-                console.log('5', file);
-
                 profileData.profile.profilePicture = fileURL;
                 profileData.profile.fileName = file.name;
                 setProfilePicture(fileURL)
-                console.log('6', file);
 
                 const response = await fetch(url ? url : "", {
                     method: "PUT",
@@ -122,9 +117,8 @@ const Page = () => {
                     headers: {
                         'Content-Type': file.type
                     }
-                });
+                })
 
-                console.log(response);
                 console.log(file);
                 if (response.ok) {
                     console.log(response);
@@ -144,14 +138,12 @@ const Page = () => {
     const handleChangeClick = async () => {
         try {
             setIsLoading(true)
-            console.log('1', profileData.profile.profilePicture);
             profileData.profile.profilePicture ? await deleteFile(profileData.profile.profilePicture) : null;
-            console.log('2', profileData.profile.profilePicture);
             setFileUploaded(false);
             profileData.profile.profilePicture = "";
             profileData.profile.fileName = "";
             setFileName("")
-            console.log('2a', "checking", profileData.profile.profilePicture);
+
         } catch (error) {
             console.error(error);
         } finally {
