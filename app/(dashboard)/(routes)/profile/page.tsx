@@ -122,9 +122,9 @@ const Page = () => {
                     headers: {
                         'Content-Type': file.type
                     }
-                })
-                console.log('7', file);
+                });
 
+                console.log(response);
                 console.log(file);
                 if (response.ok) {
                     console.log(response);
