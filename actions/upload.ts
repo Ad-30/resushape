@@ -26,38 +26,39 @@ const generateFileName = (originalFileName: string, userID: string, bytes = 32) 
 
 export const getSignedURL = async (type: string, size: number, checksum: string, originalFileName: string) => {
 
-    const session = await getServerSession(options);
-    console.log("aws 1", 'getSignedURL', process.env.CLOUD_BUCKET_NAME!);
-    if (!session) {
-        return { failure: "Not authenticated" }
-    }
+    // const session = await getServerSession(options);
+    // console.log("aws 1", 'getSignedURL', process.env.CLOUD_BUCKET_NAME!);
+    // if (!session) {
+    //     return { failure: "Not authenticated" }
+    // }
 
-    if (!acceptedTypes.includes(type)) {
-        return { failure: "Invalid file type" }
-    }
+    // if (!acceptedTypes.includes(type)) {
+    //     return { failure: "Invalid file type" }
+    // }
 
-    if (size > maxFileSize) {
-        return { failure: "File too large" }
-    }
-    console.log('aws 2', 'getSignedURL');
-    const putObjectCommand = new PutObjectCommand({
-        Bucket: process.env.CLOUD_BUCKET_NAME!,
-        Key: generateFileName(originalFileName, session?.user?.id!),
+    // if (size > maxFileSize) {
+    //     return { failure: "File too large" }
+    // }
+    // console.log('aws 2', 'getSignedURL');
+    // const putObjectCommand = new PutObjectCommand({
+    //     Bucket: process.env.CLOUD_BUCKET_NAME!,
+    //     Key: generateFileName(originalFileName, session?.user?.id!),
 
-        ContentType: type,
-        ContentLength: size,
-        ChecksumSHA256: checksum,
-        Metadata: {
-            userId: session?.user.id as string,
-        }
-    });
+    //     ContentType: type,
+    //     ContentLength: size,
+    //     ChecksumSHA256: checksum,
+    //     Metadata: {
+    //         userId: session?.user.id as string,
+    //     }
+    // });
 
-    const signedURL = await getSignedUrl(s3, putObjectCommand, {
-        expiresIn: 60,
-    });
+    // const signedURL = await getSignedUrl(s3, putObjectCommand, {
+    //     expiresIn: 60,
+    // });
 
-    const fileURL = signedURL.split("?")[0];
-
+    // const fileURL = signedURL.split("?")[0];
+    const signedURL = "";
+    const fileURL = "";
     return { success: { url: signedURL, fileURL } };
 
 }
