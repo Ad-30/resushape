@@ -101,7 +101,7 @@ const Page = () => {
                 const checkSum = await computeSHA256(file)
                 console.log('3 before');
                 const signedURLResult = await getSignedURL(file?.type, file?.size, checkSum, file?.name)
-                console.log('3', file);
+                console.log('3', file, signedURLResult);
                 if (signedURLResult.failure !== undefined) {
                     console.log("error");
                     throw (new Error(signedURLResult.failure))
