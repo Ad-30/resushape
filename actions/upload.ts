@@ -27,7 +27,7 @@ const generateFileName = (originalFileName: string, userID: string, bytes = 32) 
 export const getSignedURL = async (type: string, size: number, checksum: string, originalFileName: string) => {
 
     const session = await getServerSession(options);
-
+    console.log("aws 1", 'getSignedURL', process.env.CLOUD_BUCKET_NAME!);
     if (!session) {
         return { failure: "Not authenticated" }
     }
@@ -39,7 +39,7 @@ export const getSignedURL = async (type: string, size: number, checksum: string,
     if (size > maxFileSize) {
         return { failure: "File too large" }
     }
-
+    console.log('aws 2', 'getSignedURL');
     const putObjectCommand = new PutObjectCommand({
         Bucket: process.env.CLOUD_BUCKET_NAME!,
         Key: generateFileName(originalFileName, session?.user?.id!),
@@ -63,21 +63,30 @@ export const getSignedURL = async (type: string, size: number, checksum: string,
 }
 
 export const deleteFile = async (fileURL: string) => {
+    console.log('aws 3', 'deleteFile', process.env.CLOUD_ACCESS_KEY!, process.env.CLOUD_SECRET_ACCESS_KEY!, process.env.CLOUD_BUCKET_REGION!);
+
 
     const session = await getServerSession(options);
+    console.log('aws 4', 'deleteFile');
 
     if (!session) {
         return { failure: "Not authenticated" }
     }
+    console.log('aws 5', 'deleteFile');
 
     const url = new URL(fileURL);
     const key = url.pathname.substring(1);
+    console.log('aws 6', 'deleteFile');
 
     const deleteObjectCommand = new DeleteObjectCommand({
         Bucket: process.env.CLOUD_BUCKET_NAME!,
         Key: key,
     });
+    console.log('aws 7', 'deleteFile', process.env.CLOUD_ACCESS_KEY!, process.env.CLOUD_SECRET_ACCESS_KEY!, process.env.CLOUD_BUCKET_REGION!);
+
 
     await s3.send(deleteObjectCommand)
+    console.log('aws 8', 'deleteFile');
+
 
 }
