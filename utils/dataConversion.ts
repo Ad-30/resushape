@@ -65,7 +65,6 @@ export interface ConvertedApplicantData {
 }
 
 export function convertToApplicantData(data: any): ConvertedApplicantData {
-    console.log(data);
     const convertedData: ConvertedApplicantData = {
         selectedTemplate: data.selectedTemplate,
         headings: data.headings,

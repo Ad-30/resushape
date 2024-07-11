@@ -34,15 +34,15 @@ export default function LeftPanel() {
         awards: awardsData.awardsItems
     }
 
-    useEffect(() => {
-        console.log(profileData);
-        // console.log(educationData);
-        // console.log(workData);
-        // console.log(skillsData);
-        // console.log(projectData);
-        // console.log(awardsData);
-        // console.log(selectedTemplate);
-    }, [profileData, educationData, workData, skillsData, projectData, awardsData, selectedTemplate])
+    // useEffect(() => {
+    //     console.log(profileData);
+    //     console.log(educationData);
+    //     console.log(workData);
+    //     console.log(skillsData);
+    //     console.log(projectData);
+    //     console.log(awardsData);
+    //     console.log(selectedTemplate);
+    // }, [profileData, educationData, workData, skillsData, projectData, awardsData, selectedTemplate]);
 
     const defaultImageURL = "https://resushape.s3.eu-north-1.amazonaws.com/user.png"
 

@@ -17,6 +17,8 @@ import ResumeContext from '@/context/ResumeContext';
 
 const Page = () => {
 
+    const { data: session } = useSession()
+
     const { profileData, setProfileData } = useContext(ResumeContext);
 
     const [file, setFile] = useState<File | undefined>();
@@ -137,12 +139,12 @@ const Page = () => {
 
     const handleChangeClick = async () => {
         try {
-            setIsLoading(true)
+            setIsLoading(true);
             profileData.profile.profilePicture ? await deleteFile(profileData.profile.profilePicture) : null;
             setFileUploaded(false);
             profileData.profile.profilePicture = "";
             profileData.profile.fileName = "";
-            setFileName("")
+            setFileName("");
 
         } catch (error) {
             console.error(error);
