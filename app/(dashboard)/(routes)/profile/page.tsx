@@ -98,10 +98,10 @@ const Page = () => {
     const handleFileSubmit = async () => {
 
         try {
-            if (file) {
+            if (file && session !== null) {
                 setIsLoading(true)
                 const checkSum = await computeSHA256(file)
-                const signedURLResult = await getSignedURL(file?.type, file?.size, checkSum, file?.name)
+                const signedURLResult = await getSignedURL(file?.type, file?.size, checkSum, file?.name, session)
 
                 if (signedURLResult!.failure !== undefined) {
                     console.log("error");
@@ -140,7 +140,7 @@ const Page = () => {
     const handleChangeClick = async () => {
         try {
             setIsLoading(true);
-            profileData.profile.profilePicture ? await deleteFile(profileData.profile.profilePicture) : null;
+            profileData.profile.profilePicture ? await deleteFile(profileData.profile.profilePicture, session!) : null;
             setFileUploaded(false);
             profileData.profile.profilePicture = "";
             profileData.profile.fileName = "";

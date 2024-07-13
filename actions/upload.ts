@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { Session } from "next-auth";
 import crypto from "crypto";
 
 const s3 = new S3Client({
@@ -25,11 +26,9 @@ const generateFileName = (originalFileName: string, userID: string, bytes = 32) 
     return `${uniqueName}.${fileExtension}`;
 }
 
-export const getSignedURL = async (type: string, size: number, checksum: string, originalFileName: string) => {
+export const getSignedURL = async (type: string, size: number, checksum: string, originalFileName: string, session: Session) => {
 
     try {
-
-        const session = await getServerSession(options);
 
         if (!session) {
             return { failure: "Not authenticated" }
@@ -69,11 +68,9 @@ export const getSignedURL = async (type: string, size: number, checksum: string,
 
 }
 
-export const deleteFile = async (fileURL: string) => {
+export const deleteFile = async (fileURL: string, session: Session) => {
 
     try {
-
-        const session = await getServerSession(options);
 
         if (!session) {
             return { failure: "Not authenticated" }

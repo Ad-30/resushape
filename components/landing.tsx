@@ -57,7 +57,7 @@ export function Landing(props: any) {
       Cookies.remove('awardsData');
       Cookies.remove('templateData');
 
-      profileData.profile.profilePicture ? await deleteFile(profileData.profile.profilePicture) : null;
+      profileData.profile.profilePicture ? await deleteFile(profileData.profile.profilePicture, session!) : null;
 
       if (session?.user.resumeDetails) {
         const response = await axios.delete('/api/resume')
