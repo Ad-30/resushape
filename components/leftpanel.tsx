@@ -9,7 +9,6 @@ import { useContext, useEffect } from "react";
 import { ConvertedApplicantData, convertToApplicantData } from "@/utils/dataConversion";
 import { useSession } from "next-auth/react";
 import ResumeContext from "@/context/ResumeContext";
-import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
 export default function LeftPanel() {
     const { toast } = useToast()

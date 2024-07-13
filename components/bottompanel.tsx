@@ -8,10 +8,11 @@ import { useSession } from "next-auth/react";
 import { ConvertedApplicantData, convertToApplicantData } from "@/utils/dataConversion";
 import axios from "axios";
 import ResumeContext from "@/context/ResumeContext";
-
+import { useToast } from "@/components/ui/use-toast"
 const sections = ["/resumeTemplates", "/profile", "/education", "/work", "/skills", "/projects", "/awards"];
 
 export default function BottomPanel() {
+    const { toast } = useToast()
 
     const router = useRouter();
     const current = usePathname();
@@ -101,6 +102,12 @@ export default function BottomPanel() {
 
 
             if (!response.ok) {
+                const data = await response.json();
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Something went wrong.",
+                    description: data.error || "Try adding sufficient data in fields",
+                })
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
