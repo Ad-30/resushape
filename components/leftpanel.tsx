@@ -9,9 +9,10 @@ import { useContext, useEffect } from "react";
 import { ConvertedApplicantData, convertToApplicantData } from "@/utils/dataConversion";
 import { useSession } from "next-auth/react";
 import ResumeContext from "@/context/ResumeContext";
-
+import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast"
 export default function LeftPanel() {
-
+    const { toast } = useToast()
     const { setResumeURL, setIsResumeLoading, profileData, selectedTemplate, educationData, workData, skillsData, projectData, awardsData } = useContext(ResumeContext);
 
     const { data: session } = useSession();
@@ -63,10 +64,15 @@ export default function LeftPanel() {
                 },
             });
 
-            console.log(response);
 
 
             if (!response.ok) {
+                const data = await response.json();
+                toast({
+                    variant: "destructive",
+                    title: "Uh oh! Something went wrong.",
+                    description: data.error || "Try adding sufficient data in fields",
+                })
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 

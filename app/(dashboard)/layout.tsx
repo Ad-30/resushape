@@ -10,7 +10,7 @@ import { AwardsItem, EducationItem, ProfileData, ProjectItem, SkillsItem, WorkIt
 import Cookies from 'js-cookie';
 import { useSession } from "next-auth/react";
 import { LoadingPageComponent } from '@/components/loading-page-component';
-
+import { Toaster } from "@/components/ui/toaster"
 const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
     const { data: session } = useSession();
     const [isClient, setIsClient] = useState(false);
@@ -178,6 +178,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode; }) => {
                 </div>
                 <BottomPanel />
             </main>
+            <Toaster />
         </ResumeContext.Provider>
     );
 };
