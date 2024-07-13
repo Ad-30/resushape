@@ -27,58 +27,70 @@ const generateFileName = (originalFileName: string, userID: string, bytes = 32) 
 
 export const getSignedURL = async (type: string, size: number, checksum: string, originalFileName: string) => {
 
-    const session = await getServerSession(options);
+    try {
 
-    if (!session) {
-        return { failure: "Not authenticated" }
-    }
+        const session = await getServerSession(options);
 
-    if (!acceptedTypes.includes(type)) {
-        return { failure: "Invalid file type" }
-    }
-
-    if (size > maxFileSize) {
-        return { failure: "File too large" }
-    }
-
-    const putObjectCommand = new PutObjectCommand({
-        Bucket: process.env.AWS_BUCKET_NAME!,
-        Key: generateFileName(originalFileName, session?.user?.id!),
-
-        ContentType: type,
-        ContentLength: size,
-        ChecksumSHA256: checksum,
-        Metadata: {
-            userId: session?.user.id as string,
+        if (!session) {
+            return { failure: "Not authenticated" }
         }
-    });
 
-    const signedURL = await getSignedUrl(s3, putObjectCommand, {
-        expiresIn: 60,
-    });
+        if (!acceptedTypes.includes(type)) {
+            return { failure: "Invalid file type" }
+        }
 
-    const fileURL = signedURL.split("?")[0];
+        if (size > maxFileSize) {
+            return { failure: "File too large" }
+        }
 
-    return { success: { url: signedURL, fileURL } };
+        const putObjectCommand = new PutObjectCommand({
+            Bucket: process.env.AWS_BUCKET_NAME!,
+            Key: generateFileName(originalFileName, session?.user?.id!),
+
+            ContentType: type,
+            ContentLength: size,
+            ChecksumSHA256: checksum,
+            Metadata: {
+                userId: session?.user.id as string,
+            }
+        });
+
+        const signedURL = await getSignedUrl(s3, putObjectCommand, {
+            expiresIn: 60,
+        });
+
+        const fileURL = signedURL.split("?")[0];
+
+        return { success: { url: signedURL, fileURL } };
+
+    } catch (error) {
+        console.error('An error occurred while uploading image on s3:', error);
+    }
 
 }
 
 export const deleteFile = async (fileURL: string) => {
 
-    const session = await getServerSession(options);
+    try {
 
-    if (!session) {
-        return { failure: "Not authenticated" }
+        const session = await getServerSession(options);
+
+        if (!session) {
+            return { failure: "Not authenticated" }
+        }
+
+        const url = new URL(fileURL);
+        const key = url.pathname.substring(1);
+
+        const deleteObjectCommand = new DeleteObjectCommand({
+            Bucket: process.env.AWS_BUCKET_NAME!,
+            Key: key,
+        });
+
+        await s3.send(deleteObjectCommand);
+
+    } catch (error) {
+        console.error('An error occurred while deleting image from s3:', error);
     }
-
-    const url = new URL(fileURL);
-    const key = url.pathname.substring(1);
-
-    const deleteObjectCommand = new DeleteObjectCommand({
-        Bucket: process.env.AWS_BUCKET_NAME!,
-        Key: key,
-    });
-
-    await s3.send(deleteObjectCommand)
 
 }

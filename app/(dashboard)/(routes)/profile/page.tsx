@@ -103,12 +103,12 @@ const Page = () => {
                 const checkSum = await computeSHA256(file)
                 const signedURLResult = await getSignedURL(file?.type, file?.size, checkSum, file?.name)
 
-                if (signedURLResult.failure !== undefined) {
+                if (signedURLResult!.failure !== undefined) {
                     console.log("error");
-                    throw (new Error(signedURLResult.failure))
+                    throw (new Error(signedURLResult!.failure))
                 }
 
-                const { url, fileURL } = signedURLResult.success
+                const { url, fileURL } = signedURLResult!.success
                 profileData.profile.profilePicture = fileURL;
                 profileData.profile.fileName = file.name;
                 setProfilePicture(fileURL)
