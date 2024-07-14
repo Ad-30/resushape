@@ -27,7 +27,7 @@ const PDFViewerComponent: React.FC<PDFViewerComponentProps> = ({ resumeURL, isRe
     const getFilePluginInstance = getFilePlugin({
         fileNameGenerator: (file: OpenFile) => {
             const fileName = file.name.substring(file.name.lastIndexOf('/') + 1);
-            return `resumshape-${fileName}`;
+            return `resushape-${fileName}`;
         },
     });
     const { Download } = getFilePluginInstance;
