@@ -106,7 +106,8 @@ export default function BottomPanel() {
                 toast({
                     variant: "destructive",
                     title: "Uh oh! Something went wrong.",
-                    description: data.error || "Try adding sufficient data in fields",
+                    // description: data.error || "Try adding sufficient data in fields",
+                    description: "Please fill in all details correctly and ensure there are no blanks in any section to generate your resume efficiently."
                 })
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
