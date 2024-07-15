@@ -147,31 +147,28 @@ export default function BottomPanel() {
 
     return (
         <footer className="flex items-center justify-between p-4 bg-black text-white">
-            <Button variant="ghost" onClick={handlePrevClick}>← Prev</Button>
+            <div className={`${current === "/resumeTemplates" ? 'invisible' : ''}`}>
+                <Button variant="ghost" onClick={handlePrevClick}>← Prev</Button>
+            </div>
             {windowWidth <= 640 ? (
-
-                current === "/mobileView" ? (
+                current !== "/resumeTemplates" && (
                     <Button
-                        className="mt-4 mb-4 bg-emerald-400 text-black rounded-full w-1/3 py-3 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-opacity-50 active:bg-emerald-700 shadow-md transition duration-150 ease-in-out"
+                        className={`mt-4 mb-4 bg-emerald-400 text-black rounded-full w-1/3 py-3 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-opacity-50 active:bg-emerald-700 shadow-md transition duration-150 ease-in-out`}
                         size={'sm'}
-                        onClick={() => (router.back())}
+                        onClick={current === "/mobileView" ? () => router.back() : handleOnClick}
                     >
-                        GO BACK
-                    </Button>
-                ) : (
-                    <Button
-                        className="mt-4 mb-4 bg-emerald-400 text-black rounded-full w-1/3 py-3 hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-opacity-50 active:bg-emerald-700 shadow-md transition duration-150 ease-in-out"
-                        size={'sm'}
-                        onClick={handleOnClick}
-                    >
-                        MAKE
+                        {current === "/mobileView" ? 'GO BACK' : 'MAKE'}
                     </Button>
                 )
-
             ) : (
-                <Progress className="w-1/3 mx-4 bg-gray-800" color="rgb(93,155,136)" value={progress} />
+                <div className={`${current === "/resumeTemplates" ? 'invisible' : ''} w-1/3 mx-4`}>
+                    <Progress className="bg-gray-800" color="rgb(93,155,136)" value={progress} />
+                </div>
             )}
-            <Button variant="ghost" onClick={handleNextClick}>Next →</Button>
+            <div className={`${current === "/awards" ? 'invisible' : ''}`}>
+                <Button variant="ghost" onClick={handleNextClick}>Next →</Button>
+            </div>
         </footer>
+
     );
 }
