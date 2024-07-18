@@ -113,42 +113,42 @@ export default function LeftPanel() {
             <nav className="bg-black text-white space-y-4 ">
 
                 <div className={`hover-line flex justify-center font-bold ${pathname === '/resumeTemplates' ? 'text-emerald-400' : ''}`}>
-                    <Link href="/resumeTemplates">
+                    <Link href="/resumeTemplates" className="w-full py-2">
                         Templates
                     </Link>
                 </div>
 
                 <div className={`hover-line flex justify-center hover:decoration-emerald-300 cursor-move ${pathname === '/profile' ? 'text-emerald-400' : ''}`}>
-                    <Link href="/profile">
+                    <Link href="/profile" className="w-full py-2">
                         Profile
                     </Link>
                 </div>
                 <div className={`hover-line flex justify-center hover:decoration-emerald-300 cursor-move ${pathname === '/education' ? 'text-emerald-400' : ''}`}>
-                    <Link href="/education">
+                    <Link href="/education" className="w-full py-2">
                         Education
                     </Link>
                 </div>
 
                 <div className={`hover-line flex justify-center hover:decoration-emerald-300 cursor-move ${pathname === '/work' ? 'text-emerald-400' : ''}`}>
-                    <Link href="/work">
+                    <Link href="/work" className="w-full py-2">
                         Work
                     </Link>
                 </div>
 
                 <div className={`hover-line flex justify-center hover:decoration-emerald-300 cursor-move ${pathname === '/skills' ? 'text-emerald-400' : ''}`}>
-                    <Link href="/skills">
+                    <Link href="/skills" className="w-full py-2">
                         Skills
                     </Link>
                 </div>
 
                 <div className={`hover-line flex justify-center hover:decoration-emerald-300 cursor-move ${pathname === '/projects' ? 'text-emerald-400' : ''}`}>
-                    <Link href="/projects">
+                    <Link href="/projects" className="w-full py-2">
                         Projects
                     </Link>
                 </div>
 
                 <div className={`hover-line flex justify-center hover:decoration-emerald-300 cursor-move ${pathname === '/awards' ? 'text-emerald-400' : ''}`}>
-                    <Link href="/awards">
+                    <Link href="/awards" className="w-full py-2">
                         Awards
                     </Link>
                 </div>
