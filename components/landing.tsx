@@ -1,4 +1,5 @@
 import { Navbar } from "./navbar"
+import { useState } from 'react';
 import { Footer } from "./footer"
 import Image from 'next/image'
 import { signIn, signOut, useSession } from "next-auth/react"
@@ -7,6 +8,7 @@ import { Pen } from 'lucide-react';
 import { Button } from "./ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { useRouter } from "next/navigation";
+import './List.css';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,15 +26,17 @@ import Cookies from 'js-cookie';
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { deleteFile } from "@/actions/upload";
 import { ProfileData } from "@/app/interfaces";
-const signInWithGoogle = async () => {
-  await signIn("google")
-}
+
 
 export function Landing(props: any) {
-
+  const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
-
+  const signInWithGoogle = async () => {
+    setLoading(true);
+    await signIn("google")
+    setLoading(false);
+  }
   const savedProfileData = Cookies.get('profileData');
   const savedEducationData = Cookies.get('educationData');
   const savedWorkData = Cookies.get('workData');
@@ -100,11 +104,12 @@ export function Landing(props: any) {
                   </p>
                   {!session ?
                     <Button
-                      className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-slate-200 dark:hover:border-slate-500 hover:text-white dark:hover:text-slate-300 hover:shadow transition duration-150"
+                      className="px-4 py-2 border flex gap-2 border-slate-600 dark:border-slate-700 rounded-lg text-white dark:text-slate-200 hover:border-slate-200 dark:hover:border-slate-500 hover:text-white dark:hover:text-slate-300 hover:shadow transition duration-1000"
                       onClick={signInWithGoogle}
                     >
-                      <FcGoogle className="h-7 w-7" />
-                      <span>Sign up with Google</span>
+                      {loading ? <div className="loader"></div> : <><FcGoogle className="h-7 w-7" />
+                        <span>Sign in with google</span></>}
+
                     </Button>
                     :
                     <>
