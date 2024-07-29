@@ -20,4 +20,25 @@
   width: 50%; 
 }
 
+.loader {
+  width: 60px;
+  aspect-ratio: 2;
+  --_g1: no-repeat radial-gradient(circle closest-side, #4285F4 90%, #0000);
+  --_g2: no-repeat radial-gradient(circle closest-side, #EA4335 90%, #0000);
+  --_g3: no-repeat radial-gradient(circle closest-side, #FBBC05 90%, #0000);
+  background: 
+    var(--_g1) 0% 50%,
+    var(--_g2) 50% 50%,
+    var(--_g3) 100% 50%;
+  background-size: calc(100% / 3) 50%;
+  animation: l3 1s infinite linear;
+}
+
+@keyframes l3 {
+  20% { background-position: 0% 0%, 50% 50%, 100% 50%; }
+  40% { background-position: 0% 100%, 50% 0%, 100% 50%; }
+  60% { background-position: 0% 50%, 50% 100%, 100% 0%; }
+  80% { background-position: 0% 50%, 50% 50%, 100% 100%; }
+}
+
 
