@@ -6,6 +6,7 @@
 
 export const publicRoutes = [
     "/",
+    "/getstarted",
     "/aboutus",
     "/privacy",
     "/cookiepolicy"

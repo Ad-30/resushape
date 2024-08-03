@@ -21,6 +21,9 @@ export function Navbar(props: any) {
                 <h1 className="text-2xl lg:ml-12 font-bold text-white">resu<span className="text-emerald-400">shape</span></h1>
             </Link>
             <nav className="ml-auto flex items-center gap-4 sm:gap-6">
+                <Link className={`text-sm font-medium hidden md:block hover:text-emerald-500 transition-colors ${currentPathname === '/getstarted' ? 'text-emerald-500' : ''}`} href="/getstarted">
+                    Get Started
+                </Link>
                 <Link className={`text-sm font-medium hidden md:block hover:text-emerald-500 transition-colors ${currentPathname === '/' ? 'text-emerald-500' : ''}`} href="/">
                     Home
                 </Link>
@@ -46,6 +49,12 @@ export function Navbar(props: any) {
 
                             <DropdownMenuLabel className="font-semibold">{user?.name}</DropdownMenuLabel>
                             <DropdownMenuSeparator className="bg-emerald-400" />
+
+                            <DropdownMenuItem className="lg:hidden">
+                                <Link className={`text-sm font-medium hover:text-emerald-500 transition-colors ${currentPathname === '/getstarted' ? 'text-emerald-500' : ''}`} href="/getstarted">
+                                    Get Started
+                                </Link>
+                            </DropdownMenuItem>
 
                             <DropdownMenuItem className="lg:hidden">
                                 <Link className={`text-sm font-medium hover:text-emerald-500 transition-colors ${currentPathname === '/' ? 'text-emerald-500' : ''}`} href="/">
